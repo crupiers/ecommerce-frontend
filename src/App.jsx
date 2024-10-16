@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import ColorRegistrar from "./ColorRegistrar";
 import MarcaRegistrar from "./MarcaRegistrar";
+import CategoriaRegistrar from "./CategoriaRegistrar";
 import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
 
 function App() {
@@ -26,6 +27,12 @@ function App() {
                 </NavDropdown.Item>
               </NavDropdown>
               
+              <NavDropdown title="CATEGORIA" id="basic-nav-dropdown-3">
+                <NavDropdown.Item as={Link} to="/categoria">
+                  REGISTRAR NUEVA CATEGORIA
+                </NavDropdown.Item>
+              </NavDropdown>
+
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -35,6 +42,7 @@ function App() {
         <Routes>
           <Route path="/color" element={<ColorRegistrar/>} />
           <Route path="/marca" element={<MarcaRegistrar/>} />
+          <Route path="/categoria" element={<CategoriaRegistrar/>} />
         </Routes>
       </Container>
     </Router>
