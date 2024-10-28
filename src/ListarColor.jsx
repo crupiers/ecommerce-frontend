@@ -1,39 +1,39 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {AXIOS_CLIENT} from "./lib/axiosClient"
 
-function ListadoMarcas2() {
-  const url = "http://localhost:8080/PA/marcas";
-  const url2 = "http://localhost:8080/PA/marca";
+function ListarColor(){
+  const url = "/color";
 
-  const [marcas, setMarcas] = useState([]);
+  const [colores, setColores] = useState([]);
 
   useEffect(() => {
-    getMarcas();
+    getColores();
   }, []);
 
-  const getMarcas = async () => {
+  const getColores = async () => {
     try {
-      const value = await axios.get(url);
-      setMarcas(value.data);
+      const value = await AXIOS_CLIENT.get(url);
+      setColores(value.data);
     } catch (error) {
-      console.error("Error al obtener marcas", error);
+      console.error("Error al obtener colores", error);
     }
   };
 
   const eliminar = async (id) => {
-    await axios.delete(`${url2}/${id}`);
-    setMarcas(marcas.filter((marca) => marca.id !== id));
+    await AXIOS_CLIENT.delete(`${url}/${id}`);
+    setColores(colores.filter((color) => color.id !== id));
   };
 
   return (
     <div className="container">
       <div className="container text-center">
-        <h2>Marcas 2</h2>
+        <h2>Colores</h2>
       </div>
 
       <div>
         <button
-          onClick={() => getMarcas()}
+          onClick={() => getColores()}
           className="btn btn-primary btn-lg w-10"
         >
           Buscar
@@ -43,21 +43,19 @@ function ListadoMarcas2() {
         <thead className="table-dark">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Denominación</th>
-            <th scope="col">Observación</th>
+            <th scope="col">Nombre</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {marcas.map((marca, indice) => (
+          {colores.map((color, indice) => (
             <tr key={indice}>
-              <th scope="row">{marca.id}</th>
-              <td>{marca.denominacion}</td>
-              <td>{marca.observacion}</td>
+              <th scope="row">{color.id}</th>
+              <td>{color.nombre}</td>
               <td className="text-center">
                 <div>
                   <button
-                    onClick={() => eliminar(marca.id)}
+                    onClick={() => eliminar(color.id)}
                     className="btn btn-danger btn sm"
                   >
                     {" "}
@@ -73,4 +71,4 @@ function ListadoMarcas2() {
   );
 }
 
-export default ListadoMarcas2;
+export default ListarColor;

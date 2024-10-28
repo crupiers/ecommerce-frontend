@@ -2,38 +2,38 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 
-function ListarMarca() {
-  const url = "/marca";
+function ListarTamanio() {
+  const url = "/tamanio";
 
-  const [marcas, setMarcas] = useState([]);
+  const [tamanios, setTamanios] = useState([]);
 
   useEffect(() => {
-    getMarcas();
+    getTamanios();
   }, []);
 
-  const getMarcas = async () => {
+  const getTamanios = async () => {
     try {
       const value = await AXIOS_CLIENT.get(url);
-      setMarcas(value.data);
+      setTamanios(value.data);
     } catch (error) {
-      console.error("Error al obtener marcas", error);
+      console.error("Error al obtener tamaños", error);
     }
   };
 
   const eliminar = async (id) => {
     await AXIOS_CLIENT.delete(`${url}/${id}`);
-    setMarcas(marcas.filter((marca) => marca.id !== id));
+    setTamanios(tamanios.filter((tamanio) => tamanio.id !== id));
   };
 
   return (
     <div className="container">
       <div className="container text-center">
-        <h2>Marcas</h2>
+        <h2>Tamaños</h2>
       </div>
 
       <div>
         <button
-          onClick={() => getMarcas()}
+          onClick={() => getTamanios()}
           className="btn btn-primary btn-lg w-10"
         >
           Buscar
@@ -49,15 +49,15 @@ function ListarMarca() {
           </tr>
         </thead>
         <tbody>
-          {marcas.map((marca, indice) => (
+          {tamanios.map((tamanio, indice) => (
             <tr key={indice}>
-              <th scope="row">{marca.id}</th>
-              <td>{marca.nombre}</td>
-              <td>{marca.descripcion}</td>
+              <th scope="row">{tamanio.id}</th>
+              <td>{tamanio.nombre}</td>
+              <td>{tamanio.descripcion}</td>
               <td className="text-center">
                 <div>
                   <button
-                    onClick={() => eliminar(marca.id)}
+                    onClick={() => eliminar(tamanio.id)}
                     className="btn btn-danger btn sm"
                   >
                     {" "}
@@ -73,4 +73,4 @@ function ListarMarca() {
   );
 }
 
-export default ListarMarca;
+export default ListarTamanio;

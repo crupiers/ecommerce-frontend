@@ -2,38 +2,38 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 
-function ListarMarca() {
-  const url = "/marca";
+function ListarCategoria() {
+  const url = "/categoria";
 
-  const [marcas, setMarcas] = useState([]);
+  const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    getMarcas();
+    getCategorias();
   }, []);
 
-  const getMarcas = async () => {
+  const getCategorias = async () => {
     try {
       const value = await AXIOS_CLIENT.get(url);
-      setMarcas(value.data);
+      setCategorias(value.data);
     } catch (error) {
-      console.error("Error al obtener marcas", error);
+      console.error("Error al obtener categorias", error);
     }
   };
 
   const eliminar = async (id) => {
     await AXIOS_CLIENT.delete(`${url}/${id}`);
-    setMarcas(marcas.filter((marca) => marca.id !== id));
+    setCategorias(categorias.filter((categoria) => categoria.id !== id));
   };
 
   return (
     <div className="container">
       <div className="container text-center">
-        <h2>Marcas</h2>
+        <h2>Categorias</h2>
       </div>
 
       <div>
         <button
-          onClick={() => getMarcas()}
+          onClick={() => getCategorias()}
           className="btn btn-primary btn-lg w-10"
         >
           Buscar
@@ -44,20 +44,19 @@ function ListarMarca() {
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {marcas.map((marca, indice) => (
+          {categorias.map((categoria, indice) => (
             <tr key={indice}>
-              <th scope="row">{marca.id}</th>
-              <td>{marca.nombre}</td>
-              <td>{marca.descripcion}</td>
+              <th scope="row">{categoria.id}</th>
+              <td>{categoria.nombre}</td>
+              <td>{categoria.descripcion}</td>
               <td className="text-center">
                 <div>
                   <button
-                    onClick={() => eliminar(marca.id)}
+                    onClick={() => eliminar(categoria.id)}
                     className="btn btn-danger btn sm"
                   >
                     {" "}
@@ -73,4 +72,4 @@ function ListarMarca() {
   );
 }
 
-export default ListarMarca;
+export default ListarCategoria;
