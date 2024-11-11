@@ -6,10 +6,11 @@ import {AXIOS_CLIENT} from "./lib/axiosClient"
 function ColorRegistrar() {
 
   const [Color, setColor] = useState({
-    nombre: ""
+    nombre: "",
+    descripcion:""
   });
 
-  const { nombre } = Color;
+  const { nombre, descripcion } = Color;
 
   const onInputChange = (e) => {
     if (e?.target?.name === undefined || e?.target?.value === undefined) return;
@@ -26,13 +27,11 @@ function ColorRegistrar() {
     try {
       // Realizar una petición GET al backend 
       const response = await AXIOS_CLIENT.get(
-        `/color/existe/${nombre}`
+        `/colores/existe/${nombre}`
       );
       return !!response.data; 
     } catch (error) {
-      console.error("Error checking duplicate", error);
-
-      throw new Error("Error while checking duplicate");
+      throw new Error("ERROR AL BUSCAR COLOR DUPLICADO");
     }
   };
 
@@ -43,27 +42,22 @@ function ColorRegistrar() {
     try {
       // Validar si existe un Color duplicado.
       const isDuplicate = await checkDuplicate();
-      console.log("ESTÁ DUPLICADO: "+isDuplicate)
       if (isDuplicate) {
         alert("EL COLOR YA EXISTE");
         return;
       }
-        
-      // Declarar la URL a donde se realizará la petición HTTP.
-      const urlBase = "/color";
 
       // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información de la Color.
-      await AXIOS_CLIENT.post(urlBase, Color);
+      await AXIOS_CLIENT.post("/colores", Color);
       alert("COLOR REGISTRADO CON ÉXITO")
     } catch (error) {
-      alert("error al obtener color (?", error);
-      console.error("Error al obtener Colors", error);
+      alert("ERROR AL REGISTRAR COLOR", error);
     }
   };
 
   return (
     <div>
-    <h1>REGISTRAR NUEVO COLOR</h1>
+    <h1>REGISTRAR COLOR</h1>
     <form onSubmit={(e) => onSubmit(e)}>
       <div className="mb-3">
         <label htmlFor="nombre" className="form-label">NOMBRE</label>
@@ -76,6 +70,18 @@ function ColorRegistrar() {
             value={nombre}
             onChange={(e) => onInputChange(e)}
           />
+
+        <label htmlFor="descripcion" className="form-label">DESCRIPCIÓN</label>
+        <input
+            type="text"
+            className="form-control"
+            id="descripcion"
+            name="descripcion"
+            required={true}
+            value={descripcion}
+            onChange={(e) => onInputChange(e)}
+          />
+
       </div>
       <button type="submit" className="btn btn-primary">REGISTRAR</button>
     </form>

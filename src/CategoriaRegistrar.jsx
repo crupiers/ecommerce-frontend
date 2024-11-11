@@ -6,10 +6,11 @@ import {AXIOS_CLIENT} from "./lib/axiosClient"
 function CategoriaRegistrar() {
 
   const [Categoria, setCategoria] = useState({
-    nombre: ""
+    nombre: "",
+    descripcion:""
   });
 
-  const { nombre } = Categoria;
+  const { nombre, descripcion } = Categoria;
 
   const onInputChange = (e) => {
     if (e?.target?.name === undefined || e?.target?.value === undefined) return;
@@ -26,12 +27,11 @@ function CategoriaRegistrar() {
     try {
       // Realizar una petición GET al backend para verificar si la Categoria ya existe.
       const response = await AXIOS_CLIENT.get(
-        `/categoria/existe/${nombre}`
+        `/categorias/existe/${nombre}`
       );
       return response.data!="";
     } catch (error) {
-      console.error("Error checking duplicate", error);
-      throw new Error("Error while checking duplicate");
+      throw new Error("ERROR AL BUSCAR CATEGORÍA DUPLICADA");
     }
   };
 
@@ -43,29 +43,28 @@ function CategoriaRegistrar() {
     try {
       // Validar si existe una Categoria duplicada.
       const isDuplicate = await checkDuplicate();
-      console.log("ESTÁ DUPLICADO: "+isDuplicate)
+      //console.log("ESTÁ DUPLICADO: "+isDuplicate)
       if (isDuplicate) {
         alert("LA CATEGORIA YA EXISTE");
         return;
       }
         
-      // Declarar la URL a donde se realizará la petición HTTP.
-      const urlBase = "/categoria";
+      
 
       // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información de la Categoria.
-      await AXIOS_CLIENT.post(urlBase, Categoria);
+      await AXIOS_CLIENT.post("/categorias", Categoria);
       alert("CATEGORIA REGISTRADA CON ÉXITO")
     } catch (error) {
-      alert("error al obtener categoria(?", error);
-      console.error("Error al obtener Categoria", error);
+      alert("ERROR AL REGISTRAR CATEGORÍA", error);
     }
   };
 
   return (
     <div>
-    <h1>REGISTRAR NUEVA CATEGORIA</h1>
+    <h1>REGISTRAR CATEGORIA</h1>
     <form onSubmit={(e) => onSubmit(e)}>
       <div className="mb-3">
+        
         <label htmlFor="nombre" className="form-label">NOMBRE</label>
         <input
             type="text"
@@ -76,6 +75,18 @@ function CategoriaRegistrar() {
             value={nombre}
             onChange={(e) => onInputChange(e)}
           />
+
+        <label htmlFor="descripcion" className="form-label">DESCRIPCIÓN</label>
+        <input
+            type="text"
+            className="form-control"
+            id="descripcion"
+            name="descripcion"
+            required={true}
+            value={descripcion}
+            onChange={(e) => onInputChange(e)}
+          />
+
       </div>
       <button type="submit" className="btn btn-primary">REGISTRAR</button>
     </form>

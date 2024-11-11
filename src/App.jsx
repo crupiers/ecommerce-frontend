@@ -4,10 +4,10 @@ import ColorRegistrar from "./ColorRegistrar";
 import MarcaRegistrar from "./MarcaRegistrar";
 import CategoriaRegistrar from "./CategoriaRegistrar";
 import TamanioRegistrar from "./TamanioRegistrar";
-import ListarMarca from "./ListarMarca";
-import ListarColor from "./ListarColor";
-import ListarCategoria from "./ListarCategoria";
-import ListarTamanio from "./ListarTamanio";
+import MarcaListar from "./MarcaListar";
+import ColorListar from "./ColorListar";
+import CategoriaListar from "./CategoriaListar";
+import TamanioListar from "./TamanioListar";
 
 import { Nav, Navbar, NavDropdown, Container } from "react-bootstrap";
 
@@ -22,37 +22,37 @@ function App() {
             <Nav className="me-auto">
               
               <NavDropdown title="COLOR" id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/color">
-                  REGISTRAR NUEVO COLOR
+                <NavDropdown.Item as={Link} to="/colores/registrar">
+                  REGISTRAR COLOR
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/colores">
+                <NavDropdown.Item as={Link} to="/colores/listar">
                   LISTAR COLORES
                 </NavDropdown.Item>
               </NavDropdown>
               
               <NavDropdown title="MARCA" id="basic-nav-dropdown-2">
-                <NavDropdown.Item as={Link} to="/marca">
-                  REGISTRAR NUEVA MARCA
+                <NavDropdown.Item as={Link} to="/marcas/registrar">
+                  REGISTRAR MARCA
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/marcas">
+                <NavDropdown.Item as={Link} to="/marcas/listar">
                   LISTAR MARCA
                 </NavDropdown.Item>
               </NavDropdown>
               
               <NavDropdown title="CATEGORIA" id="basic-nav-dropdown-3">
-                <NavDropdown.Item as={Link} to="/categoria">
-                  REGISTRAR NUEVA CATEGORIA
+                <NavDropdown.Item as={Link} to="/categorias/registrar">
+                  REGISTRAR CATEGORÍA
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/categorias">
-                  LISTAR CATEGORIAS
+                <NavDropdown.Item as={Link} to="/categorias/listar">
+                  LISTAR CATEGORÍAS
                 </NavDropdown.Item>
               </NavDropdown>
 
               <NavDropdown title="TAMAÑO" id="basic-nav-dropdown-4">
-                <NavDropdown.Item as={Link} to="/tamanio">
-                  REGISTRAR NUEVO TAMAÑO
+                <NavDropdown.Item as={Link} to="/tamanios/registrar">
+                  REGISTRAR TAMAÑO
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/tamanios">
+                <NavDropdown.Item as={Link} to="/tamanios/listar">
                   LISTAR TAMAÑOS
                 </NavDropdown.Item>
               </NavDropdown>
@@ -64,15 +64,14 @@ function App() {
 
       <Container>
         <Routes>
-          <Route path="/color" element={<ColorRegistrar/>} />
-          <Route path="/colores" element={<ListarColor/>} />
-          <Route path="/marca" element={<MarcaRegistrar/>} />
-          <Route path="/categoria" element={<CategoriaRegistrar/>} />
-          <Route path="/categorias" element={<ListarCategoria/>} />
-          <Route path="/tamanio" element={<TamanioRegistrar/>} />
-          <Route path="/tamanios" element={<ListarTamanio/>} />
-          <Route path="/marca" element={<MarcaRegistrar/> } />
-          <Route path="/marcas" element={<ListarMarca/> } />
+          <Route path="/colores/registrar" element={<ColorRegistrar/>} />
+          <Route path="/colores/listar" element={<ColorListar/>} />
+          <Route path="/categorias/registrar" element={<CategoriaRegistrar/>} />
+          <Route path="/categorias/listar" element={<CategoriaListar/>} />
+          <Route path="/tamanios/registrar" element={<TamanioRegistrar/>} />
+          <Route path="/tamanios/listar" element={<TamanioListar/>} />
+          <Route path="/marcas/registrar" element={<MarcaRegistrar/> } />
+          <Route path="/marcas/listar" element={<MarcaListar/> } />
 
         </Routes>
       </Container>

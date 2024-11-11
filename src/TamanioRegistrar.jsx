@@ -27,12 +27,11 @@ function TamanioRegistrar() {
     try {
       // Realizar una petición GET al backend para verificar si la tamaño ya existe.
       const response = await AXIOS_CLIENT.get(
-        `/tamanio/existe/${nombre}`
+        `/tamanios/existe/${nombre}`
       );
       return response.data!=""; //si la data no tiene nada, el tamaño no está registrado
     } catch (error) {
-      console.error("Error checking duplicate", error);
-      throw new Error("Error while checking duplicate");
+      throw new Error("ERROR AL BUSCAR TAMAÑO DUPLICADO");
     }
   };
 
@@ -44,30 +43,24 @@ function TamanioRegistrar() {
     try {
       // Validar si existe un tamaño duplicado.
       const isDuplicate = await checkDuplicate();
-      console.log("ESTÁ DUPLICADO: "+isDuplicate)
       if (isDuplicate) {
         alert("EL TAMAÑO YA EXISTE");
         return;
       }
-      
-      // Declarar la URL a donde se realizará la petición HTTP.
-      const urlBase = "/tamanio";
-
       // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información del tamaño.
-      await AXIOS_CLIENT.post(urlBase, Tamanio);
+      await AXIOS_CLIENT.post("tamanios", Tamanio);
       alert("TAMAÑO REGISTRADO CON ÉXITO")
     } catch (error) {
-      alert("Error al obtener tamaño", error);
-      console.error("Error al obtener tamaño", error);
+      alert("ERROR AL REGISTRAR TAMAÑO", error);
     }
   };
 
   return (
     <div>
-    <h1>REGISTRAR NUEVO TAMAÑO</h1>
+    <h1>REGISTRAR TAMAÑO</h1>
     <form onSubmit={(e) => onSubmit(e)}>
       <div className="mb-3">
-        <label htmlFor="nombre" className="form-label">DENOMINACION</label>
+        <label htmlFor="nombre" className="form-label">NOMBRE</label>
         <input
             type="text"
             className="form-control"
@@ -79,7 +72,7 @@ function TamanioRegistrar() {
           />
       </div>
       <div className="mb-3">
-        <label htmlFor="descripcion" className="form-label">DESCRIPCION</label>
+        <label htmlFor="descripcion" className="form-label">DESCRIPCIÓN</label>
         <input
             type="text"
             className="form-control"
