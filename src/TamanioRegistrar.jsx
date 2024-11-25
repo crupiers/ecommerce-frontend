@@ -56,8 +56,11 @@ function TamanioRegistrar() {
   };
 
   return (
-    <div>
-    <h1>REGISTRAR TAMAÑO</h1>
+    <div className="container">
+      <div className="container text-center" style={{}}>
+        <h3>REGISTRAR TAMAÑO</h3>
+      </div>
+    
     <form onSubmit={(e) => onSubmit(e)}>
       <div className="mb-3">
         <label htmlFor="nombre" className="form-label">NOMBRE</label>
@@ -83,6 +86,7 @@ function TamanioRegistrar() {
             onChange={(e) => onInputChange(e)}
           />
       </div>
+      
       <button type="submit" className="btn btn-primary">REGISTRAR</button>
     </form>
   </div>

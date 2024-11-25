@@ -60,8 +60,11 @@ function CategoriaRegistrar() {
   };
 
   return (
-    <div>
-    <h1>REGISTRAR CATEGORIA</h1>
+    <div className="container">
+      <div className="container text-center" style={{}}>
+        <h3>REGISTRAR CATEGORÍA</h3>
+      </div>
+    
     <form onSubmit={(e) => onSubmit(e)}>
       <div className="mb-3">
         
@@ -86,8 +89,8 @@ function CategoriaRegistrar() {
             value={descripcion}
             onChange={(e) => onInputChange(e)}
           />
-
       </div>
+      
       <button type="submit" className="btn btn-primary">REGISTRAR</button>
     </form>
   </div>

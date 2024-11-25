@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 
-function ListarMarca() {
-  const url = "/marca";
+function MarcaListar() {
+  const url = "/marcas";
 
   const [marcas, setMarcas] = useState([]);
 
@@ -16,7 +16,7 @@ function ListarMarca() {
       const value = await AXIOS_CLIENT.get(url);
       setMarcas(value.data);
     } catch (error) {
-      console.error("Error al obtener marcas", error);
+      console.error("ERROR AL OBTENER MARCAS", error);
     }
   };
 
@@ -28,7 +28,7 @@ function ListarMarca() {
   return (
     <div className="container">
       <div className="container text-center">
-        <h2>Marcas</h2>
+        <h2>LISTAR MARCAS</h2>
       </div>
 
       <div>
@@ -36,16 +36,16 @@ function ListarMarca() {
           onClick={() => getMarcas()}
           className="btn btn-primary btn-lg w-10"
         >
-          Buscar
+          BUSCAR
         </button>
       </div>
       <table className="table table-striped table-hover">
         <thead className="table-dark">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Acciones</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">DESCRIPCIÓN</th>
+            <th scope="col">ACCIONES</th>
           </tr>
         </thead>
         <tbody>
@@ -61,7 +61,7 @@ function ListarMarca() {
                     className="btn btn-danger btn sm"
                   >
                     {" "}
-                    Eliminar
+                    ELIMINAR
                   </button>
                 </div>
               </td>
@@ -73,4 +73,4 @@ function ListarMarca() {
   );
 }
 
-export default ListarMarca;
+export default MarcaListar;

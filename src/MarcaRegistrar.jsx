@@ -52,8 +52,8 @@ function MarcaRegistrar() {
   };
   return (
     <div className="container">
-      <div className="container text-center" style={{ margin: "30px" }}>
-        <h3> REGISTRAR MARCA </h3>
+      <div className="container text-center" style={{}}>
+        <h3>REGISTRAR MARCA</h3>
       </div>
 
       <form onSubmit={(e) => onSubmit(e)}>
@@ -81,11 +81,7 @@ function MarcaRegistrar() {
           />
         </div>
 
-        <div className="text-center">
-          <button type="submit" className="btn btn-warning btn-sm me-3">
-            REGISTRAR
-          </button>
-        </div>
+        <button type="submit" className="btn btn-primary">REGISTRAR</button>
       </form>
     </div>
   );

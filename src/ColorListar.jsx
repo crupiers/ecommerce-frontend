@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 
-function ListarColor(){
-  const url = "/color";
+function ColorListar(){
+  const url = "/colores";
 
   const [colores, setColores] = useState([]);
 
@@ -16,7 +16,7 @@ function ListarColor(){
       const value = await AXIOS_CLIENT.get(url);
       setColores(value.data);
     } catch (error) {
-      console.error("Error al obtener colores", error);
+      console.error("ERROR AL OBTENER COLORES", error);
     }
   };
 
@@ -28,7 +28,7 @@ function ListarColor(){
   return (
     <div className="container">
       <div className="container text-center">
-        <h2>Colores</h2>
+        <h2>LISTAR COLORES</h2>
       </div>
 
       <div>
@@ -36,15 +36,15 @@ function ListarColor(){
           onClick={() => getColores()}
           className="btn btn-primary btn-lg w-10"
         >
-          Buscar
+          BUSCAR
         </button>
       </div>
       <table className="table table-striped table-hover">
         <thead className="table-dark">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Acciones</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">ACCIONES</th>
           </tr>
         </thead>
         <tbody>
@@ -59,7 +59,7 @@ function ListarColor(){
                     className="btn btn-danger btn sm"
                   >
                     {" "}
-                    Eliminar
+                    ELIMINAR
                   </button>
                 </div>
               </td>
@@ -71,4 +71,4 @@ function ListarColor(){
   );
 }
 
-export default ListarColor;
+export default ColorListar;

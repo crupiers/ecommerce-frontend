@@ -16,7 +16,7 @@ function App() {
     <Router>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand>eCommerce CRUPIERS</Navbar.Brand>
+          <Navbar.Brand>e-Commerce Crupiers</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -35,7 +35,7 @@ function App() {
                   REGISTRAR MARCA
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/marcas/listar">
-                  LISTAR MARCA
+                  LISTAR MARCAS
                 </NavDropdown.Item>
               </NavDropdown>
               

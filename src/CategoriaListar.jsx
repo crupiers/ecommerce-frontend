@@ -2,66 +2,65 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 
-function ListarTamanio() {
-  const url = "/tamanio";
+function CategoriaListar() {
+  const url = "/categorias";
 
-  const [tamanios, setTamanios] = useState([]);
+  const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    getTamanios();
+    getCategorias();
   }, []);
 
-  const getTamanios = async () => {
+  const getCategorias = async () => {
     try {
       const value = await AXIOS_CLIENT.get(url);
-      setTamanios(value.data);
+      setCategorias(value.data);
     } catch (error) {
-      console.error("Error al obtener tamaños", error);
+      console.error("ERROR AL OBTENER CATEGORÍAS", error);
     }
   };
 
   const eliminar = async (id) => {
     await AXIOS_CLIENT.delete(`${url}/${id}`);
-    setTamanios(tamanios.filter((tamanio) => tamanio.id !== id));
+    setCategorias(categorias.filter((categoria) => categoria.id !== id));
   };
 
   return (
     <div className="container">
       <div className="container text-center">
-        <h2>Tamaños</h2>
+        <h2>LISTAR CATEGORÍAS</h2>
       </div>
 
       <div>
         <button
-          onClick={() => getTamanios()}
+          onClick={() => getCategorias()}
           className="btn btn-primary btn-lg w-10"
         >
-          Buscar
+          BUSCAR
         </button>
       </div>
       <table className="table table-striped table-hover">
         <thead className="table-dark">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Acciones</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">ACCIONES</th>
           </tr>
         </thead>
         <tbody>
-          {tamanios.map((tamanio, indice) => (
+          {categorias.map((categoria, indice) => (
             <tr key={indice}>
-              <th scope="row">{tamanio.id}</th>
-              <td>{tamanio.nombre}</td>
-              <td>{tamanio.descripcion}</td>
+              <th scope="row">{categoria.id}</th>
+              <td>{categoria.nombre}</td>
+              <td>{categoria.descripcion}</td>
               <td className="text-center">
                 <div>
                   <button
-                    onClick={() => eliminar(tamanio.id)}
+                    onClick={() => eliminar(categoria.id)}
                     className="btn btn-danger btn sm"
                   >
                     {" "}
-                    Eliminar
+                    ELIMINAR
                   </button>
                 </div>
               </td>
@@ -73,4 +72,4 @@ function ListarTamanio() {
   );
 }
 
-export default ListarTamanio;
+export default CategoriaListar;
