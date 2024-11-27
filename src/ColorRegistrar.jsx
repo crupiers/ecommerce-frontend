@@ -40,12 +40,14 @@ function ColorRegistrar() {
     e.preventDefault();
 
     try {
+      /**
       // Validar si existe un Color duplicado.
       const isDuplicate = await checkDuplicate();
       if (isDuplicate) {
         alert("EL COLOR YA EXISTE");
         return;
       }
+       */
 
       // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información de la Color.
       await AXIOS_CLIENT.post("/colores", Color);

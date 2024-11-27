@@ -41,12 +41,14 @@ function TamanioRegistrar() {
     e.preventDefault();
 
     try {
+      /** 
       // Validar si existe un tamaño duplicado.
       const isDuplicate = await checkDuplicate();
       if (isDuplicate) {
         alert("EL TAMAÑO YA EXISTE");
         return;
       }
+      */
       // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información del tamaño.
       await AXIOS_CLIENT.post("tamanios", Tamanio);
       alert("TAMAÑO REGISTRADO CON ÉXITO")
