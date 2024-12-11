@@ -1,5 +1,4 @@
-import React from "react";
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import ColorRegistrar from "./ColorRegistrar";
 import MarcaRegistrar from "./MarcaRegistrar";
 import CategoriaRegistrar from "./CategoriaRegistrar";
@@ -12,6 +11,7 @@ import {ProtectedRoute} from "./ProtectedRoute";
 import {AuthRoutes} from "./AuthRoutes";
 import {AppLayout} from "./AppLayout";
 import UsuarioActualizar from "./UsuarioActualizar.jsx";
+import {ColorAuditoria} from "./ColorAuditoria.jsx";
 
 function App() {
     return (
@@ -27,6 +27,7 @@ function App() {
                 >
                     <Route path="/colores/registrar" element={<ColorRegistrar/>}/>
                     <Route path="/colores/listar" element={<ColorListar/>}/>
+                    <Route path="/admin/colores" element={<ColorAuditoria/>}/>
                     <Route path="/categorias/registrar" element={<CategoriaRegistrar/>}/>
                     <Route path="/categorias/listar" element={<CategoriaListar/>}/>
                     <Route path="/tamanios/registrar" element={<TamanioRegistrar/>}/>
