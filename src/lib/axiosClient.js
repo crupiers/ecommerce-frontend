@@ -7,7 +7,7 @@ export const AXIOS_CLIENT = axios.create({
 AXIOS_CLIENT.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response.status === 403) {
+    if (error.response.status === 403 && window.location.pathname !== "/auth/login") {
       localStorage.removeItem("token");
       window.location.href = "/auth/login";
     }

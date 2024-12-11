@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import ColorRegistrar from "./ColorRegistrar";
 import MarcaRegistrar from "./MarcaRegistrar";
 import CategoriaRegistrar from "./CategoriaRegistrar";
@@ -11,36 +10,42 @@ import TamanioListar from "./TamanioListar";
 import {ProtectedRoute} from "./ProtectedRoute";
 import {AuthRoutes} from "./AuthRoutes";
 import {AppLayout} from "./AppLayout";
+import UsuarioActualizar from "./UsuarioActualizar.jsx";
+import {ColorAuditoria} from "./ColorAuditoria.jsx";
+import {CategoriaAuditoria} from "./CategoriaAuditoria.jsx";
+import {TamanioAuditoria} from "./TamanioAuditoria.jsx";
+import {MarcaAuditoria} from "./MarcaAuditoria.jsx";
 
 function App() {
-  return (
-    <Router>
-        <Routes>
-        <Route
-          path={"/"}
-          element={
-            <ProtectedRoute>
-              <AppLayout/>
-      </ProtectedRoute>
-          }
-        >
-
-          <Route path="/colores/registrar" element={<ColorRegistrar/>} />
-          <Route path="/colores/listar" element={<ColorListar/>} />
-          <Route path="/categorias/registrar" element={<CategoriaRegistrar/>} />
-          <Route path="/categorias/listar" element={<CategoriaListar/>} />
-          <Route path="/tamanios/registrar" element={<TamanioRegistrar/>} />
-          <Route path="/tamanios/listar" element={<TamanioListar/>} />
-          <Route path="/marcas/registrar" element={<MarcaRegistrar/> } />
-          <Route path="/marcas/listar" element={<MarcaListar/> } />
-
-          </Route>
-
-          <Route path={"/auth/*"} element={<AuthRoutes />} />
-
-        </Routes>
-    </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route
+                    path={"/"}
+                    element={
+                        <ProtectedRoute>
+                            <AppLayout/>
+                        </ProtectedRoute>
+                    }
+                >
+                    <Route path="/colores/registrar" element={<ColorRegistrar/>}/>
+                    <Route path="/colores/listar" element={<ColorListar/>}/>
+                    <Route path="/admin/colores" element={<ColorAuditoria/>}/>
+                    <Route path="/categorias/registrar" element={<CategoriaRegistrar/>}/>
+                    <Route path="/categorias/listar" element={<CategoriaListar/>}/>
+                    <Route path="/admin/categorias" element={<CategoriaAuditoria/>}/>
+                    <Route path="/tamanios/registrar" element={<TamanioRegistrar/>}/>
+                    <Route path="/tamanios/listar" element={<TamanioListar/>}/>
+                    <Route path="/admin/tamanios" element={<TamanioAuditoria/>}/>
+                    <Route path="/marcas/registrar" element={<MarcaRegistrar/>}/>
+                    <Route path="/marcas/listar" element={<MarcaListar/>}/>
+                    <Route path="/admin/marcas" element={<MarcaAuditoria/>}/>
+                    <Route path="/usuarios/actualizar" element={<UsuarioActualizar/>}/>
+                </Route>
+                <Route path={"/auth/*"} element={<AuthRoutes/>}/>
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
