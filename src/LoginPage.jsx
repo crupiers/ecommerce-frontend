@@ -19,6 +19,7 @@ export function LoginPage() {
             localStorage.setItem("token", response.data["jwt"]);
             localStorage.setItem("userId", response.data["id"]);
             localStorage.setItem("role", response.data["rol"]);
+            localStorage.setItem("username", response.data["nombre"]);
             navigate("/");
         } catch {
             setError("USUARIO O CONTRASEÑA INCORRECTOS");

@@ -12,6 +12,9 @@ import {AuthRoutes} from "./AuthRoutes";
 import {AppLayout} from "./AppLayout";
 import UsuarioActualizar from "./UsuarioActualizar.jsx";
 import {ColorAuditoria} from "./ColorAuditoria.jsx";
+import {CategoriaAuditoria} from "./CategoriaAuditoria.jsx";
+import {TamanioAuditoria} from "./TamanioAuditoria.jsx";
+import {MarcaAuditoria} from "./MarcaAuditoria.jsx";
 
 function App() {
     return (
@@ -30,10 +33,13 @@ function App() {
                     <Route path="/admin/colores" element={<ColorAuditoria/>}/>
                     <Route path="/categorias/registrar" element={<CategoriaRegistrar/>}/>
                     <Route path="/categorias/listar" element={<CategoriaListar/>}/>
+                    <Route path="/admin/categorias" element={<CategoriaAuditoria/>}/>
                     <Route path="/tamanios/registrar" element={<TamanioRegistrar/>}/>
                     <Route path="/tamanios/listar" element={<TamanioListar/>}/>
+                    <Route path="/admin/tamanios" element={<TamanioAuditoria/>}/>
                     <Route path="/marcas/registrar" element={<MarcaRegistrar/>}/>
                     <Route path="/marcas/listar" element={<MarcaListar/>}/>
+                    <Route path="/admin/marcas" element={<MarcaAuditoria/>}/>
                     <Route path="/usuarios/actualizar" element={<UsuarioActualizar/>}/>
                 </Route>
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
