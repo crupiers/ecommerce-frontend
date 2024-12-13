@@ -1,9 +1,9 @@
-import {AXIOS_CLIENT} from "./lib/axiosClient.js";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {AXIOS_CLIENT} from "./lib/axiosClient.js";
 
-export function LoginPage() {
-    const [error, setError] = useState("");
+export function RegisterPage() {
+
     const [nombre, setNombre] = useState("");
     const [contrasenia, setContrasenia] = useState("");
     const navigate = useNavigate();
@@ -12,7 +12,7 @@ export function LoginPage() {
         event.preventDefault();
 
         try {
-            const response = await AXIOS_CLIENT.post("/auth/login", {
+            const response = await AXIOS_CLIENT.post("/auth/register", {
                 nombre: nombre,
                 contrasenia: contrasenia,
             });
@@ -21,8 +21,8 @@ export function LoginPage() {
             localStorage.setItem("role", response.data["rol"]);
             localStorage.setItem("username", response.data["nombre"]);
             navigate("/");
-        } catch {
-            setError("USUARIO O CONTRASEÑA INCORRECTOS");
+        } catch (error) {
+            alert(`ERROR AL REGISTRAR USUARIO: \n${error.response.data}`);
         }
     }
 
@@ -32,7 +32,7 @@ export function LoginPage() {
                 "vh-100 flex-column d-flex align-items-center justify-content-center gap-2"
             }
         >
-            <h1>LOGIN</h1>
+            <h1>REGISTER</h1>
             <form
                 onSubmit={handleOnSubmit}
                 style={{
@@ -67,14 +67,13 @@ export function LoginPage() {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary w-100">
-                    INICIAR SESIÓN
+                    REGISTRAR USUARIO
                 </button>
+                <div className={"text-center mt-5"}>
+                    <a href="/auth/login">¿Ya tienes una cuenta? Logueate aquí</a>
+                </div>
             </form>
-
-            {error && <div className={"text-danger my-2"}>{error}</div>}
-            <div className={"text-center mt-5"}>
-                <a href="/auth/register">¿No tienes una cuenta? Registrate aquí</a>
-            </div>
         </div>
-    );
+    )
+
 }
