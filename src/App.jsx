@@ -15,6 +15,7 @@ import {ColorAuditoria} from "./ColorAuditoria.jsx";
 import {CategoriaAuditoria} from "./CategoriaAuditoria.jsx";
 import {TamanioAuditoria} from "./TamanioAuditoria.jsx";
 import {MarcaAuditoria} from "./MarcaAuditoria.jsx";
+import StockFormulario from "./StockFormulario.jsx";
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/marcas/listar" element={<MarcaListar/>}/>
                     <Route path="/admin/marcas" element={<MarcaAuditoria/>}/>
                     <Route path="/usuarios/actualizar" element={<UsuarioActualizar/>}/>
+                    <Route path="/productos/movimientoStock" element={<StockFormulario/> } />
                 </Route>
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
             </Routes>
