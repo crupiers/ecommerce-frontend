@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient.js";
-import {Card, CardImg, Form} from "react-bootstrap";
+import {Card, CardImg, Col, Form, Row} from "react-bootstrap";
 
 export function Catalogo() {
 
@@ -10,6 +10,7 @@ export function Catalogo() {
         return savedCarrito ? JSON.parse(savedCarrito) : [];
     });
 
+    const [imagenes, setImagenes] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [tamanios, setTamanios] = useState([]);
     const [colores, setColores] = useState([]);
@@ -23,6 +24,7 @@ export function Catalogo() {
 
     useEffect(() => {
         getProductos();
+        getImagenes();
         getMarcas();
         getTamanios();
         getColores();
@@ -39,6 +41,15 @@ export function Catalogo() {
             setProductos(value.data);
         } catch (error) {
             alert(`ERROR AL OBTENER PRODUCTOS: \n${error.response.data.message}`);
+        }
+    }
+
+    const getImagenes = async () => {
+        try {
+            const value = await AXIOS_CLIENT.get("/imagenes");
+            setImagenes(value.data);
+        } catch (error) {
+            alert(`ERROR AL OBTENER IMÁGENES: \n${error.response.data.message}`);
         }
     }
 
@@ -156,61 +167,64 @@ export function Catalogo() {
                     ))}
                 </Form.Select>
             </div>
-            <div className={"d-flex justify-content-center"}>
+            <Row className={"d-flex justify-content-center"}>
                 {
                     filteredProductos.map(producto => (
-                        <Card key={producto.id} className={"mt-3 ms-1 me-1"} style={{width: '18rem'}}>
-                            <CardImg variant={"top"} src={"src/assets/react.svg"}
-                                     className={"card-img bg-body-secondary"}
-                                     style={{height: '18rem', width: '18rem', padding: '15px'}}/>
-                            <Card.Body>
-                                <Card.Title>
-                                    {producto.nombre}
-                                </Card.Title>
-                                <Card.Text>
-                                    {producto.descripcion}
-                                </Card.Text>
-                                <hr/>
-                                <Card.Text>
-                                    <span className={"fw-bold"}>CATEGORÍA: </span>
-                                    {producto.nombreCategoria}
-                                </Card.Text>
-                                <Card.Text>
-                                    <span className={"fw-bold"}>MARCA: </span>
-                                    {producto.nombreMarca}
-                                </Card.Text>
-                                <Card.Text>
-                                    <span className={"fw-bold"}>TAMAÑO: </span>
-                                    {producto.nombreTamanio}
-                                </Card.Text>
-                                <Card.Text>
-                                    <span className={"fw-bold"}>COLOR: </span>
-                                    {producto.nombreColor}
-                                </Card.Text>
-                                <hr/>
-                                <div className={"d-flex justify-content-between align-items-center"}>
-                                    <span className={"fw-bold card"} style={{padding: "5px"}}>${producto.precio}</span>
-                                    <span style={{fontSize: "12px"}}>STOCK: {producto.stock}</span>
-                                </div>
-                                <hr/>
-                                <form onSubmit={(e) => {
-                                    e.preventDefault();
-                                    const cantidad = e.target.elements.cantidad.value;
-                                    handleAgregarCarrito(producto.id, cantidad);
-                                }}>
+                        <Col key={producto.id} xs={12} sm={6} md={4} lg={3} className={"mb-3"}>
+                            <Card className={"mt-3 ms-1 me-1"} style={{width: '100%'}}>
+                                <CardImg variant={"top"}
+                                         src={imagenes.find(img => img.idProducto === producto.id)?.imagenBase64 || "src/assets/exampleImage.svg"}
+                                         className={"card-img bg-body-secondary"}
+                                         style={{height: '18rem', width: '100%', padding: '15px'}}/>
+                                <Card.Body>
+                                    <Card.Title>
+                                        {producto.nombre}
+                                    </Card.Title>
+                                    <Card.Text>
+                                        {producto.descripcion}
+                                    </Card.Text>
+                                    <hr/>
+                                    <Card.Text>
+                                        <span className={"fw-bold"}>CATEGORÍA: </span>
+                                        {producto.nombreCategoria}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <span className={"fw-bold"}>MARCA: </span>
+                                        {producto.nombreMarca}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <span className={"fw-bold"}>TAMAÑO: </span>
+                                        {producto.nombreTamanio}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <span className={"fw-bold"}>COLOR: </span>
+                                        {producto.nombreColor}
+                                    </Card.Text>
+                                    <hr/>
                                     <div className={"d-flex justify-content-between align-items-center"}>
-                                        <button type={"submit"} className={"btn btn-primary"}>
-                                            AGREGAR AL CARRITO
-                                        </button>
-                                        <input type="number" className={"form-control"} style={{width: "60px"}} min="1"
-                                               defaultValue="1" name="cantidad"/>
+                                        <span className={"fw-bold card"} style={{padding: "5px"}}>${producto.precio}</span>
+                                        <span style={{fontSize: "12px"}}>STOCK: {producto.stock}</span>
                                     </div>
-                                </form>
-                            </Card.Body>
-                        </Card>
+                                    <hr/>
+                                    <form onSubmit={(e) => {
+                                        e.preventDefault();
+                                        const cantidad = e.target.elements.cantidad.value;
+                                        handleAgregarCarrito(producto.id, cantidad);
+                                    }}>
+                                        <div className={"d-flex justify-content-between align-items-center"}>
+                                            <button type={"submit"} className={"btn btn-primary"}>
+                                                AGREGAR AL CARRITO
+                                            </button>
+                                            <input type="number" className={"form-control"} style={{width: "60px"}} min="1"
+                                                   defaultValue="1" name="cantidad"/>
+                                        </div>
+                                    </form>
+                                </Card.Body>
+                            </Card>
+                        </Col>
                     ))
                 }
-            </div>
+            </Row>
         </div>
     );
 }

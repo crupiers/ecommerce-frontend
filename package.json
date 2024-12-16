@@ -15,6 +15,7 @@
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.3.5",
     "react-router-dom": "^6.26.2",
     "router": "^2.0.0",
     "router-dom": "^3.0.1"

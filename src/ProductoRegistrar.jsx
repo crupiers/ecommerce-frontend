@@ -1,5 +1,6 @@
 import {AXIOS_CLIENT} from "./lib/axiosClient.js";
 import {useEffect, useState} from "react";
+import {useDropzone} from "react-dropzone"
 
 export function ProductoRegistrar() {
 
@@ -14,6 +15,7 @@ export function ProductoRegistrar() {
     const [categorias, setCategorias] = useState([]);
     const [marcas, setMarcas] = useState([]);
     const [tamanios, setTamanios] = useState([]);
+    const [imagen, setImagen] = useState(null);
 
     const getColores = async () => {
         try {
@@ -67,20 +69,39 @@ export function ProductoRegistrar() {
     const {nombre, descripcion, precio, stock, umbral, colorId, categoriaId, marcaId, tamanioId, codigoBarra} = Producto;
 
     const onInputChange = (e) => {
-        console.log(e)
         setProducto({...Producto, [e.target.name]: e.target.value});
+    }
+
+    const onDrop = (acceptedFiles) => {
+        const file = acceptedFiles[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64Image = reader.result;
+            setImagen(base64Image);
+        };
+        reader.readAsDataURL(file);
     }
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        if (!imagen) {
+            alert("Por favor, sube una imagen del producto.");
+            return;
+        }
         try {
-            await AXIOS_CLIENT.post("/productos", Producto);
-            alert("PRODUCTO REGISTRADO CON ÉXITO")
+            const producto = await AXIOS_CLIENT.post("/productos", Producto);
+            await AXIOS_CLIENT.post("/admin/imagenes", {
+                idProducto: Number(producto.data.id),
+                imagenBase64: imagen
+            });
+            alert("PRODUCTO REGISTRADO CON ÉXITO");
+            window.location.reload();
         } catch (error) {
             alert(`ERROR AL REGISTRAR PRODUCTO: \n${error.response.data.message}`);
         }
     };
 
+    const {getRootProps, getInputProps} = useDropzone({onDrop, accept: "image/*"});
 
     return (
         <div className="container">
@@ -224,7 +245,14 @@ export function ProductoRegistrar() {
                         onChange={(e) => onInputChange(e)}
                     ></input>
                 </div>
-                <button type="submit" className="btn btn-primary">REGISTRAR</button>
+                <label className={"form-label"}>IMAGEN</label>
+                <div className="mb-3" {...getRootProps()}
+                     style={{border: "2px dashed #cccccc", padding: "20px", textAlign: "center"}}>
+                    <input {...getInputProps()} />
+                    {imagen ? <img src={imagen} alt="Imagen del producto" style={{height: '18rem', width: '18rem', padding: '15px'}}/> :
+                        <span style={{color: "gray"}}>Arrastra una imagen aquí, o haz clic para seleccionar una</span>}
+                </div>
+                <button type="submit" className="btn btn-primary mb-5">REGISTRAR</button>
             </form>
         </div>
     )
