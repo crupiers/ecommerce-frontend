@@ -20,6 +20,8 @@ import {ProductoRegistrar} from "./ProductoRegistrar.jsx";
 import {ProductoListar} from "./ProductoListar.jsx";
 import {ProductoAuditoria} from "./ProductoAuditoria.jsx";
 import {MovimientoStockAuditoria} from "./MovimientoStockAuditoria.jsx";
+import {Catalogo} from "./Catalogo.jsx";
+import {Carrito} from "./Carrito.jsx";
 
 function App() {
     return (
@@ -51,6 +53,8 @@ function App() {
                     <Route path="/productos/registrar" element={<ProductoRegistrar/>}/>
                     <Route path="/productos/listar" element={<ProductoListar/>}/>
                     <Route path="/productos/auditoria" element={<ProductoAuditoria/>}/>
+                    <Route path="/catalogo" element={<Catalogo/>}/>
+                    <Route path="/carrito" element={<Carrito/>}/>
                 </Route>
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
             </Routes>

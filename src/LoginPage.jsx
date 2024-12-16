@@ -20,7 +20,7 @@ export function LoginPage() {
             localStorage.setItem("userId", response.data["id"]);
             localStorage.setItem("role", response.data["rol"]);
             localStorage.setItem("username", response.data["nombre"]);
-            navigate("/");
+            navigate("/catalogo");
         } catch {
             setError("USUARIO O CONTRASEÑA INCORRECTOS");
         }

@@ -102,6 +102,8 @@ function MovimientoStockRegistrar() {
                         name="cantidad"
                         required={true}
                         value={cantidad}
+                        min="1"
+                        defaultValue="1"
                         onChange={(e) => onInputChange(e)}
                     />
                 </div>

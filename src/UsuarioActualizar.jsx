@@ -32,8 +32,8 @@ function UsuarioActualizar() {
 
     return (
         <div className="container">
-            <div className="container text-center">
-                <h3>ACTUALIZAR USUARIO</h3>
+            <div className="container text-center mt-3">
+                <h1>ACTUALIZAR USUARIO</h1>
             </div>
 
             <form onSubmit={(e) => onSubmit(e)}>
