@@ -1,11 +1,13 @@
-import axios from "axios";
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
+import {Table} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 
 function TamanioListar() {
     const url = "/tamanios";
 
     const [tamanios, setTamanios] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getTamanios();
@@ -20,57 +22,42 @@ function TamanioListar() {
         }
     };
 
-    const eliminar = async (id) => {
-        await AXIOS_CLIENT.delete(`${url}/${id}`);
-        setTamanios(tamanios.filter((tamanio) => tamanio.id !== id));
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
     };
 
-    return (
-        <div className="container">
-            <div className="container text-center">
-                <h2>LISTAR TAMAÑOS</h2>
-            </div>
+    const filteredTamanios = tamanios.filter(tamanio =>
+        tamanio.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-            <div>
-                <button
-                    onClick={() => getTamanios()}
-                    className="btn btn-primary btn-lg w-10"
-                >
-                    BUSCAR
-                </button>
-            </div>
-            <table className="table table-striped table-hover">
-                <thead className="table-dark">
+    return (
+        <div className={"text-center mt-3"}>
+            <h1>LISTA TAMAÑOS</h1>
+            <Form.Control
+                type="text"
+                placeholder="Buscar por nombre"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className={"mt-3"}
+            />
+            <Table className={"mt-3"} bordered>
+                <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">NOMBRE</th>
-                    <th scope="col">DESCRIPCIÓN</th>
-                    <th scope="col">ACCIONES</th>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
                 </tr>
                 </thead>
-                <tbody>
-                {tamanios.map((tamanio, indice) => (
+                {filteredTamanios.map((tamanio, indice) => (
                     <tr key={indice}>
-                        <th scope="row">{tamanio.id}</th>
+                        <td>{tamanio.id}</td>
                         <td>{tamanio.nombre}</td>
                         <td>{tamanio.descripcion}</td>
-                        <td className="text-center">
-                            <div>
-                                <button
-                                    onClick={() => eliminar(tamanio.id)}
-                                    className="btn btn-danger btn sm"
-                                >
-                                    {" "}
-                                    ELIMINAR
-                                </button>
-                            </div>
-                        </td>
                     </tr>
                 ))}
-                </tbody>
-            </table>
+            </Table>
         </div>
-    );
+    )
 }
 
-export default TamanioListar;
+export default TamanioListar

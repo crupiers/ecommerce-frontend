@@ -1,4 +1,3 @@
-import axios from "axios";
 import {useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 
@@ -53,10 +52,9 @@ function MarcaRegistrar() {
     };
     return (
         <div className="container">
-            <div className="container text-center" style={{}}>
-                <h3>REGISTRAR MARCA</h3>
+            <div className={"text-center mt-3"} style={{}}>
+                <h1>REGISTRAR MARCA</h1>
             </div>
-
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="mb-3">
                     <label htmlFor="nombre" className="form-label">NOMBRE</label>
@@ -81,7 +79,6 @@ function MarcaRegistrar() {
                         onChange={(e) => onInputChange(e)}
                     />
                 </div>
-
                 <button type="submit" className="btn btn-primary">REGISTRAR</button>
             </form>
         </div>

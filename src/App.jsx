@@ -15,7 +15,11 @@ import {ColorAuditoria} from "./ColorAuditoria.jsx";
 import {CategoriaAuditoria} from "./CategoriaAuditoria.jsx";
 import {TamanioAuditoria} from "./TamanioAuditoria.jsx";
 import {MarcaAuditoria} from "./MarcaAuditoria.jsx";
-import StockFormulario from "./StockFormulario.jsx";
+import MovimientoStockRegistrar from "./MovimientoStockRegistrar.jsx";
+import {ProductoRegistrar} from "./ProductoRegistrar.jsx";
+import {ProductoListar} from "./ProductoListar.jsx";
+import {ProductoAuditoria} from "./ProductoAuditoria.jsx";
+import {MovimientoStockAuditoria} from "./MovimientoStockAuditoria.jsx";
 
 function App() {
     return (
@@ -31,18 +35,22 @@ function App() {
                 >
                     <Route path="/colores/registrar" element={<ColorRegistrar/>}/>
                     <Route path="/colores/listar" element={<ColorListar/>}/>
-                    <Route path="/admin/colores" element={<ColorAuditoria/>}/>
+                    <Route path="/colores/auditoria" element={<ColorAuditoria/>}/>
                     <Route path="/categorias/registrar" element={<CategoriaRegistrar/>}/>
                     <Route path="/categorias/listar" element={<CategoriaListar/>}/>
-                    <Route path="/admin/categorias" element={<CategoriaAuditoria/>}/>
+                    <Route path="/categorias/auditoria" element={<CategoriaAuditoria/>}/>
                     <Route path="/tamanios/registrar" element={<TamanioRegistrar/>}/>
                     <Route path="/tamanios/listar" element={<TamanioListar/>}/>
-                    <Route path="/admin/tamanios" element={<TamanioAuditoria/>}/>
+                    <Route path="/tamanios/auditoria" element={<TamanioAuditoria/>}/>
                     <Route path="/marcas/registrar" element={<MarcaRegistrar/>}/>
                     <Route path="/marcas/listar" element={<MarcaListar/>}/>
-                    <Route path="/admin/marcas" element={<MarcaAuditoria/>}/>
+                    <Route path="/marcas/auditoria" element={<MarcaAuditoria/>}/>
                     <Route path="/usuarios/actualizar" element={<UsuarioActualizar/>}/>
-                    <Route path="/productos/movimientoStock" element={<StockFormulario/> } />
+                    <Route path="/productos/movimientoStock" element={<MovimientoStockRegistrar/>}/>
+                    <Route path="/productos/movimientoStock/auditoria" element={<MovimientoStockAuditoria/>}/>
+                    <Route path="/productos/registrar" element={<ProductoRegistrar/>}/>
+                    <Route path="/productos/listar" element={<ProductoListar/>}/>
+                    <Route path="/productos/auditoria" element={<ProductoAuditoria/>}/>
                 </Route>
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
             </Routes>

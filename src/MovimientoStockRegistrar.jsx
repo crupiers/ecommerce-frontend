@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { AXIOS_CLIENT } from "./lib/axiosClient";
+import {useEffect, useState} from "react";
+import {AXIOS_CLIENT} from "./lib/axiosClient";
 
-function StockFormulario() {
+function MovimientoStockRegistrar() {
     const [MovimientoStock, setMovimientoStock] = useState({
         productoId: 0,
         motivo: "",
@@ -9,46 +9,66 @@ function StockFormulario() {
         tipoMovimiento: ""
     });
 
-    const { productoId, motivo, cantidad, tipoMovimiento } = MovimientoStock;
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [productos, setProductos] = useState([]);
+    const {productoId, motivo, cantidad, tipoMovimiento} = MovimientoStock;
 
     const onInputChange = (e) => {
         if (e?.target?.name === undefined || e?.target?.value === undefined) return;
-        setMovimientoStock({ ...MovimientoStock, [e.target.name]: e.target.value });
+        setMovimientoStock({...MovimientoStock, [e.target.name]: e.target.value});
     };
+
+    useEffect(() => {
+        getProductos();
+    }, []);
+
+    const getProductos = async () => {
+        try {
+            const value = await AXIOS_CLIENT.get("/productos");
+            setProductos(value.data);
+        } catch (error) {
+            alert(`ERROR AL OBTENER PRODUCTOS: \n${error.response.data.message}`)
+        }
+    }
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        console.log(MovimientoStock);
-        console.log(productoId);
+        setIsSubmitting(true);
 
         try {
-            await AXIOS_CLIENT.post(`/movimientoStock/${productoId}` , MovimientoStock);
+            await AXIOS_CLIENT.post(`/movimientoStock/${productoId}`, MovimientoStock);
             alert("STOCK MODIFICADO CON ÉXITO");
         } catch (error) {
-            console.error("Error al modificar el stock:" );
-            alert(`ERROR AL MODIFICAR STOCK `);
+            alert(`ERROR MODIFICAR STOCK: \n${error.response.data.message}`);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
         <div className="container">
-            <div className="container text-center">
-                <h3>FORMULARIO STOCK</h3>
+            <div className="container text-center mt-3">
+                <h1>FORMULARIO STOCK</h1>
             </div>
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="mb-3">
                     <label htmlFor="productoId" className="form-label">PRODUCTO</label>
-                    <input
-                        type="number"
+                    <select
                         className="form-control"
                         id="productoId"
                         name="productoId"
                         required={true}
                         value={productoId}
                         onChange={(e) => onInputChange(e)}
-                    />
+                    >
+                        <option value="">SELECCIONAR PRODUCTO</option>
+                        {productos.map((producto) => (
+                            <option key={producto.id} value={producto.id}>
+                                {producto.nombre}
+                            </option>
+                        ))}
+                    </select>
                 </div>
-
                 <div className="mb-3">
                     <label htmlFor="tipoMovimiento" className="form-label">Tipo Movimiento</label>
                     <div>
@@ -98,10 +118,12 @@ function StockFormulario() {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">MODIFICAR</button>
+                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                    {isSubmitting ? "Enviando..." : "MODIFICAR"}
+                </button>
             </form>
         </div>
     );
 }
 
-export default StockFormulario;
+export default MovimientoStockRegistrar;

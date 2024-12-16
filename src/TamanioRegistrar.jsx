@@ -1,6 +1,4 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import {useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 
 function TamanioRegistrar() {
@@ -59,10 +57,9 @@ function TamanioRegistrar() {
 
     return (
         <div className="container">
-            <div className="container text-center" style={{}}>
-                <h3>REGISTRAR TAMAÑO</h3>
+            <div className={"text-center mt-3"} style={{}}>
+                <h1>REGISTRAR TAMAÑO</h1>
             </div>
-
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="mb-3">
                     <label htmlFor="nombre" className="form-label">NOMBRE</label>
@@ -88,7 +85,6 @@ function TamanioRegistrar() {
                         onChange={(e) => onInputChange(e)}
                     />
                 </div>
-
                 <button type="submit" className="btn btn-primary">REGISTRAR</button>
             </form>
         </div>

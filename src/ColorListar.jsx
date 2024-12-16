@@ -1,10 +1,13 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
+import {Table} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 
 function ColorListar() {
     const url = "/colores";
 
     const [colores, setColores] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getColores();
@@ -19,53 +22,40 @@ function ColorListar() {
         }
     };
 
-    const eliminar = async (id) => {
-        await AXIOS_CLIENT.delete(`${url}/${id}`);
-        setColores(colores.filter((color) => color.id !== id));
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
     };
 
-    return (
-        <div className="container">
-            <div className="container text-center">
-                <h2>LISTAR COLORES</h2>
-            </div>
+    const filteredColores = colores.filter(color =>
+        color.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-            <div>
-                <button
-                    onClick={() => getColores()}
-                    className="btn btn-primary btn-lg w-10"
-                >
-                    BUSCAR
-                </button>
-            </div>
-            <table className="table table-striped table-hover">
-                <thead className="table-dark">
+    return (
+        <div className={"text-center mt-3"}>
+            <h1>LISTA COLORES</h1>
+            <Form.Control
+                type="text"
+                placeholder="Buscar por nombre"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className={"mt-3"}
+            />
+            <Table className={"mt-3"} bordered>
+                <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">NOMBRE</th>
-                    <th scope="col">ACCIONES</th>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
                 </tr>
                 </thead>
-                <tbody>
-                {colores.map((color, indice) => (
+                {filteredColores.map((color, indice) => (
                     <tr key={indice}>
-                        <th scope="row">{color.id}</th>
+                        <td>{color.id}</td>
                         <td>{color.nombre}</td>
-                        <td className="text-center">
-                            <div>
-                                <button
-                                    onClick={() => eliminar(color.id)}
-                                    className="btn btn-danger btn sm"
-                                >
-                                    {" "}
-                                    ELIMINAR
-                                </button>
-                            </div>
-                        </td>
+                        <td>{color.descripcion}</td>
                     </tr>
                 ))}
-                </tbody>
-            </table>
+            </Table>
         </div>
     );
 }

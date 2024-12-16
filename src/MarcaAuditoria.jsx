@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient.js";
-import {Table} from "react-bootstrap";
+import {Form, Table} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export function MarcaAuditoria() {
 
@@ -9,6 +10,7 @@ export function MarcaAuditoria() {
     }, []);
 
     const [marcas, setMarcas] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const getMarcas = async () => {
         try {
@@ -19,11 +21,45 @@ export function MarcaAuditoria() {
         }
     }
 
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredMarcas = marcas.filter(marca =>
+        marca.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const eliminarMarca = async (id) => {
+        try {
+            await AXIOS_CLIENT.delete(`/marcas/${id}`);
+            alert("MARCA ELIMINADO CON ÉXITO");
+            getMarcas();
+        } catch (error) {
+            alert(`ERROR AL ELIMINAR MARCA: ${error.response && error.response.status === 403 ? "\nNO TIENE LOS PERMISOS SUFICIENTES" : `\n${error.response.data.message}`}`);
+        }
+    }
+
+    const activarMarca = async (id) => {
+        try {
+            await AXIOS_CLIENT.put(`/marcas/recuperar/${id}`);
+            alert("MARCA ACTIVADO CON ÉXITO");
+            getMarcas();
+        } catch (error) {
+            alert(`ERROR AL ACTIVAR MARCA: ${error.response && error.response.status === 403 ? "\nNO TIENE LOS PERMISOS SUFICIENTES" : `\n${error.response.data.message}`}`);
+        }
+    }
+
     return (
         <div className={"text-center mt-3"}>
             <h1>AUDITORIA MARCAS</h1>
-            <Table className={"mt-3"} bordered>
-
+            <Form.Control
+                type="text"
+                placeholder="Buscar por nombre"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className={"mt-3"}
+            />
+            <Table className={"mt-3"} bordered responsive>
                 <thead>
                 <tr>
                     <th>Id</th>
@@ -35,9 +71,10 @@ export function MarcaAuditoria() {
                     <th>Actualizado en</th>
                     <th>Borrado en</th>
                     <th>Estado</th>
+                    <th>Acción</th>
                 </tr>
                 </thead>
-                {marcas.map((marca, indice) => (
+                {filteredMarcas.map((marca, indice) => (
                     <tr key={indice}>
                         <td>{marca.id}</td>
                         <td>{marca.nombre}</td>
@@ -46,8 +83,20 @@ export function MarcaAuditoria() {
                         <td>{marca.createdAt}</td>
                         <td>{marca.updatedBy}</td>
                         <td>{marca.updatedAt}</td>
-                        <td>{marca.deletedAt}</td>
-                        <td>{marca.estado}</td>
+                        <td>{marca.deletedAt === null ? "N/A" : marca.deletedAt}</td>
+                        <td>{marca.estado === 0 ? "ACTIVO" : "ELIMINADO"}</td>
+                        {
+                            <td>
+                                {
+                                    marca.estado === 0 ?
+                                        <Link to="#" className={"bg-transparent text-danger"}
+                                              onClick={() => eliminarMarca(marca.id)}>Eliminar</Link>
+                                        :
+                                        <Link to="#" className={"bg-transparent text-success"}
+                                              onClick={() => activarMarca(marca.id)}>Activar</Link>
+                                }
+                            </td>
+                        }
                     </tr>
                 ))}
             </Table>

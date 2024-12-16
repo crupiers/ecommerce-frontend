@@ -1,11 +1,13 @@
-import axios from "axios";
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
+import {Table} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 
 function MarcaListar() {
     const url = "/marcas";
 
     const [marcas, setMarcas] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getMarcas();
@@ -20,55 +22,40 @@ function MarcaListar() {
         }
     };
 
-    const eliminar = async (id) => {
-        await AXIOS_CLIENT.delete(`${url}/${id}`);
-        setMarcas(marcas.filter((marca) => marca.id !== id));
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
     };
 
-    return (
-        <div className="container">
-            <div className="container text-center">
-                <h2>LISTAR MARCAS</h2>
-            </div>
+    const filteredMarcas = marcas.filter(marca =>
+        marca.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-            <div>
-                <button
-                    onClick={() => getMarcas()}
-                    className="btn btn-primary btn-lg w-10"
-                >
-                    BUSCAR
-                </button>
-            </div>
-            <table className="table table-striped table-hover">
-                <thead className="table-dark">
+    return (
+        <div className={"text-center mt-3"}>
+            <h1>LISTA MARCAS</h1>
+            <Form.Control
+                type="text"
+                placeholder="Buscar por nombre"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className={"mt-3"}
+            />
+            <Table className={"mt-3"} bordered>
+                <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">NOMBRE</th>
-                    <th scope="col">DESCRIPCIÓN</th>
-                    <th scope="col">ACCIONES</th>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
                 </tr>
                 </thead>
-                <tbody>
-                {marcas.map((marca, indice) => (
+                {filteredMarcas.map((marca, indice) => (
                     <tr key={indice}>
-                        <th scope="row">{marca.id}</th>
+                        <td>{marca.id}</td>
                         <td>{marca.nombre}</td>
                         <td>{marca.descripcion}</td>
-                        <td className="text-center">
-                            <div>
-                                <button
-                                    onClick={() => eliminar(marca.id)}
-                                    className="btn btn-danger btn sm"
-                                >
-                                    {" "}
-                                    ELIMINAR
-                                </button>
-                            </div>
-                        </td>
                     </tr>
                 ))}
-                </tbody>
-            </table>
+            </Table>
         </div>
     );
 }

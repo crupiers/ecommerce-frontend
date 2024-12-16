@@ -1,6 +1,4 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import {useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 
 function CategoriaRegistrar() {
@@ -62,10 +60,9 @@ function CategoriaRegistrar() {
 
     return (
         <div className="container">
-            <div className="container text-center" style={{}}>
-                <h3>REGISTRAR CATEGORÍA</h3>
+            <div className={"text-center mt-3"} style={{}}>
+                <h1>REGISTRAR CATEGORÍA</h1>
             </div>
-
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="mb-3">
 
@@ -79,7 +76,8 @@ function CategoriaRegistrar() {
                         value={nombre}
                         onChange={(e) => onInputChange(e)}
                     />
-
+                </div>
+                <div className="mb-3">
                     <label htmlFor="descripcion" className="form-label">DESCRIPCIÓN</label>
                     <input
                         type="text"
@@ -91,7 +89,6 @@ function CategoriaRegistrar() {
                         onChange={(e) => onInputChange(e)}
                     />
                 </div>
-
                 <button type="submit" className="btn btn-primary">REGISTRAR</button>
             </form>
         </div>
