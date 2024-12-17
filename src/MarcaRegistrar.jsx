@@ -44,7 +44,7 @@ function MarcaRegistrar() {
              */
 
             // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información del tamaño.
-            await AXIOS_CLIENT.post("/marcas", marca);
+            await AXIOS_CLIENT.post("/admin/marcas", marca);
             alert("MARCA REGISTRADO CON ÉXITO")
         } catch (error) {
             alert("ERROR AL REGISTRAR MARCA", error);

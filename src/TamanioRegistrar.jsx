@@ -48,7 +48,7 @@ function TamanioRegistrar() {
              }
              */
             // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información del tamaño.
-            await AXIOS_CLIENT.post("tamanios", Tamanio);
+            await AXIOS_CLIENT.post("/admin/tamanios", Tamanio);
             alert("TAMAÑO REGISTRADO CON ÉXITO")
         } catch (error) {
             alert("ERROR AL REGISTRAR TAMAÑO", error);

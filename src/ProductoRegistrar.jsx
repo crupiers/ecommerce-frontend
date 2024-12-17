@@ -89,7 +89,7 @@ export function ProductoRegistrar() {
             return;
         }
         try {
-            const producto = await AXIOS_CLIENT.post("/productos", Producto);
+            const producto = await AXIOS_CLIENT.post("/admin/productos", Producto);
             await AXIOS_CLIENT.post("/admin/imagenes", {
                 idProducto: Number(producto.data.id),
                 imagenBase64: imagen
