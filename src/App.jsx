@@ -24,6 +24,8 @@ import {Catalogo} from "./Catalogo.jsx";
 import {Carrito} from "./Carrito.jsx";
 import {UsuarioPedidos} from "./UsuarioPedidos.jsx";
 import {PedidoAuditoria} from "./PedidoAuditoria.jsx";
+import {EstadisticasUsuario} from "./EstadisticasUsuario.jsx";
+import {EstadisticasAdmin} from "./EstadisticasAdmin.jsx";
 
 function App() {
     return (
@@ -59,6 +61,8 @@ function App() {
                     <Route path="/carrito" element={<Carrito/>}/>
                     <Route path="/usuarios/pedidos" element={<UsuarioPedidos/>}/>
                     <Route path="/pedidos/auditoria" element={<PedidoAuditoria/>}/>
+                    <Route path="/estadisticas" element={<EstadisticasUsuario/>}/>
+                    <Route path="/estadisticas/admin" element={<EstadisticasAdmin/>}/>
                 </Route>
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
             </Routes>
