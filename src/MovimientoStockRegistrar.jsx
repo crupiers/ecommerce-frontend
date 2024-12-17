@@ -36,7 +36,7 @@ function MovimientoStockRegistrar() {
         setIsSubmitting(true);
 
         try {
-            await AXIOS_CLIENT.post(`/movimientoStock/${productoId}`, MovimientoStock);
+            await AXIOS_CLIENT.post(`/admin/movimientoStock/${productoId}`, MovimientoStock);
             alert("STOCK MODIFICADO CON ÉXITO");
         } catch (error) {
             alert(`ERROR MODIFICAR STOCK: \n${error.response.data.message}`);

@@ -48,7 +48,7 @@ function ColorRegistrar() {
              */
 
             // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información de la Color.
-            await AXIOS_CLIENT.post("/colores", Color);
+            await AXIOS_CLIENT.post("/admin/colores", Color);
             alert("COLOR REGISTRADO CON ÉXITO")
         } catch (error) {
             alert("ERROR AL REGISTRAR COLOR", error);

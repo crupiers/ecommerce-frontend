@@ -86,6 +86,9 @@ export function MenuBarra() {
                         <NavDropdown.Item as={Link} to="/usuarios/actualizar">
                             ACTUALIZAR USUARIO
                         </NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/usuarios/pedidos">
+                            PEDIDOS
+                        </NavDropdown.Item>
                     </NavDropdown>
                 </Container>
             </Navbar>

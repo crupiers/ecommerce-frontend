@@ -51,7 +51,7 @@ function CategoriaRegistrar() {
 
 
             // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información de la Categoria.
-            await AXIOS_CLIENT.post("/categorias", Categoria);
+            await AXIOS_CLIENT.post("/admin/categorias", Categoria);
             alert("CATEGORIA REGISTRADA CON ÉXITO")
         } catch (error) {
             alert("ERROR AL REGISTRAR CATEGORÍA", error);

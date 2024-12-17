@@ -75,6 +75,7 @@ export function TamanioAuditoria() {
                     <th>Acción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredTamanios.map((tamanio, indice) => (
                     <tr key={indice}>
                         <td>{tamanio.id}</td>
@@ -100,6 +101,7 @@ export function TamanioAuditoria() {
                         }
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     )

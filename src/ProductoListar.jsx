@@ -56,6 +56,7 @@ export function ProductoListar() {
                     <th>Código de barra</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredProductos.map((producto, indice) => (
                     <tr key={indice}>
                         <td>{producto.id}</td>
@@ -71,6 +72,7 @@ export function ProductoListar() {
                         <td>{producto.codigoBarra}</td>
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     )

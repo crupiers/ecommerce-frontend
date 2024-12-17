@@ -74,6 +74,7 @@ export function CategoriaAuditoria() {
                     <th>Acción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredCategorias.map((categoria, indice) => (
                     <tr key={indice}>
                         <td>{categoria.id}</td>
@@ -99,6 +100,7 @@ export function CategoriaAuditoria() {
                         }
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     )
