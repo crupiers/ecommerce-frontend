@@ -136,8 +136,8 @@ export function EstadisticasAdmin() {
                 datasets: [
                     {
                         data: [...topMarcas.map(([, value]) => value), otrasMarcas],
-                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC'],
-                        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC']
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB'],
+                        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB']
                     }
                 ]
             });
@@ -147,8 +147,8 @@ export function EstadisticasAdmin() {
                 datasets: [
                     {
                         data: [...topCategorias.map(([, value]) => value), otrasCategorias],
-                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC'],
-                        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC']
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB'],
+                        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB']
                     }
                 ]
             });
@@ -233,24 +233,16 @@ export function EstadisticasAdmin() {
                                 options={{
                                     responsive: true,
                                     plugins: {
-                                        legend: {position: 'top'},
-                                        title: {display: true, text: 'Productos más vendidos por Marca'}
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Cantidad de productos vendidos por Marca',
+                                        },
                                     },
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true,
-                                            ticks: {
-                                                stepSize: 1
-                                            }
-                                        }
-                                    }
                                 }}
                             />
-                            <div className={"mb-5 mt-2"}>
-                                <span className={"fw-light card d-inline-block"} style={{padding: "8px"}}>
-                                    Se suman la cantidad de productos vendidos por marca de todos los pedidos
-                                </span>
-                            </div>
                         </>
                     )}
                     {dataCategoria.labels && dataCategoria.labels.length > 0 && (
@@ -260,57 +252,67 @@ export function EstadisticasAdmin() {
                                 options={{
                                     responsive: true,
                                     plugins: {
-                                        legend: {position: 'top'},
-                                        title: {display: true, text: 'Productos más vendidos por Categoría'}
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Cantidad de productos vendidos por Categoría',
+                                        },
                                     },
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true,
-                                            ticks: {
-                                                stepSize: 1
-                                            }
-                                        }
-                                    }
                                 }}
                             />
-                            <div className={"mb-5 mt-2"}>
-                                <span className={"fw-light card d-inline-block"} style={{padding: "8px"}}>
-                                    Se suman la cantidad de productos vendidos por categoría de todos los pedidos
-                                </span>
-                            </div>
                         </>
                     )}
                     {dataPieMarca.labels && dataPieMarca.labels.length > 0 && (
-                        <div className={"mb-5"} style={{width: '80%', height: '500px', margin: '0 auto'}}>
-                            <Pie
-                                data={dataPieMarca}
-                                options={{
-                                    responsive: true,
-                                    maintainAspectRatio: false,
-                                    plugins: {
-                                        legend: {position: 'top'},
-                                        title: {display: true, text: `Top ${topNMarcas} Marcas con más productos vendidos`}
-                                    }
-                                }}
-                            />
+                        <div>
+                            <div className={"mb-3 mt-3"}>
+                                <label className={"me-2"}>Top Nº Marcas:</label>
+                                <input type="number" value={topNMarcas} onChange={handleTopNMarcasChange} min="1"/>
+                            </div>
+                            <div className={"mb-5"} style={{width: '80%', height: '500px', margin: '0 auto'}}>
+                                <Pie className={"mb-5"} style={{width: '80%', height: '500px', margin: '0 auto'}}
+                                     data={dataPieMarca}
+                                     options={{
+                                         responsive: true,
+                                         plugins: {
+                                             legend: {
+                                                 position: 'top',
+                                             },
+                                             title: {
+                                                 display: true,
+                                                 text: 'Distribución de productos vendidos por Marca',
+                                             },
+                                         },
+                                     }}
+                                />
+                            </div>
                         </div>
                     )}
                     {dataPieCategoria.labels && dataPieCategoria.labels.length > 0 && (
-                        <div className={"mb-5"} style={{width: '80%', height: '500px', margin: '0 auto'}}>
-                            <Pie
-                                data={dataPieCategoria}
-                                options={{
-                                    responsive: true,
-                                    maintainAspectRatio: false,
-                                    plugins: {
-                                        legend: {position: 'top'},
-                                        title: {
-                                            display: true,
-                                            text: `Top ${topNCategorias} Categorías con más productos vendidos`
-                                        }
-                                    }
-                                }}
-                            />
+                        <div>
+                            <div className={"mb-3"}>
+                                <label className={"me-2"}>Top Nº Categorías:</label>
+                                <input type="number" value={topNCategorias} onChange={handleTopNCategoriasChange}
+                                       min="1"/>
+                            </div>
+                            <div className={"mb-5 d-flex justify-content-center"} style={{height: '500px'}}>
+                                <Pie
+                                    data={dataPieCategoria}
+                                    options={{
+                                        responsive: true,
+                                        plugins: {
+                                            legend: {
+                                                position: 'top',
+                                            },
+                                            title: {
+                                                display: true,
+                                                text: 'Distribución de productos vendidos por Categoría',
+                                            },
+                                        },
+                                    }}
+                                />
+                            </div>
                         </div>
                     )}
                     <div className={"mb-5"}>
@@ -323,7 +325,8 @@ export function EstadisticasAdmin() {
                             ))}
                         </select>
                         <label className={"ms-3 me-2"}>Cantidad de Productos:</label>
-                        <input type="number" value={cantidadProductosMarca} onChange={handleCantidadProductosMarcaChange}
+                        <input type="number" value={cantidadProductosMarca}
+                               onChange={handleCantidadProductosMarcaChange}
                                min="1"/>
                         <Table striped bordered hover className={"mt-3"}>
                             <thead>
@@ -345,7 +348,6 @@ export function EstadisticasAdmin() {
                         </Table>
                     </div>
 
-
                     <div className={"mb-4"}>
                         <h2 className={"mb-4"}>PRODUCTOS MÁS VENDIDOS DE UNA CATEGORÍA</h2>
                         <label className={"me-2"}>Categoría:</label>
@@ -356,7 +358,8 @@ export function EstadisticasAdmin() {
                             ))}
                         </select>
                         <label className={"ms-3 me-2"}>Cantidad de Productos:</label>
-                        <input type="number" value={cantidadProductosCategoria} onChange={handleCantidadProductosCategoriaChange}
+                        <input type="number" value={cantidadProductosCategoria}
+                               onChange={handleCantidadProductosCategoriaChange}
                                min="1"/>
                         <Table striped bordered hover className={"mt-3"}>
                             <thead>
@@ -377,8 +380,6 @@ export function EstadisticasAdmin() {
                             </tbody>
                         </Table>
                     </div>
-
-
                 </>
             )}
         </div>
