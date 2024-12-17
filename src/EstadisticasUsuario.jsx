@@ -19,6 +19,8 @@ export function EstadisticasUsuario() {
     const [dataCantidad, setDataCantidad] = useState({});
     const [dataMonto, setDataMonto] = useState({});
     const [dataMarca, setDataMarca] = useState({});
+    const [fechaInicio, setFechaInicio] = useState("");
+    const [fechaFin, setFechaFin] = useState("");
 
     const getProductos = async () => {
         try {
@@ -54,32 +56,39 @@ export function EstadisticasUsuario() {
             const montoPorCategoria = {};
             const productosPorMarca = {};
 
-            pedidos.forEach(pedido => {
-                const categoriasEnPedido = new Set();
-                pedido.idDetallesPedido.forEach(idDetalle => {
-                    const detalle = detallesPedidos.find(d => d.id === idDetalle);
-                    if (detalle) {
-                        const producto = productos.find(p => p.id === detalle.idProducto);
-                        if (producto) {
-                            categoriasEnPedido.add(producto.nombreCategoria);
-                            if (!montoPorCategoria[producto.nombreCategoria]) {
-                                montoPorCategoria[producto.nombreCategoria] = 0;
-                            }
-                            montoPorCategoria[producto.nombreCategoria] += detalle.subtotal;
+            const fechaInicioDate = new Date(fechaInicio);
+            const fechaFinDate = new Date(fechaFin);
 
-                            if (!productosPorMarca[producto.nombreMarca]) {
-                                productosPorMarca[producto.nombreMarca] = 0;
+            pedidos.forEach(pedido => {
+                const [dia, mes, anio] = pedido.fechaPedido.split("/");
+                const fechaPedido = new Date(`${anio}-${mes}-${dia}`);
+                if (fechaPedido >= fechaInicioDate && fechaPedido <= fechaFinDate) {
+                    const categoriasEnPedido = new Set();
+                    pedido.idDetallesPedido.forEach(idDetalle => {
+                        const detalle = detallesPedidos.find(d => d.id === idDetalle);
+                        if (detalle) {
+                            const producto = productos.find(p => p.id === detalle.idProducto);
+                            if (producto) {
+                                categoriasEnPedido.add(producto.nombreCategoria);
+                                if (!montoPorCategoria[producto.nombreCategoria]) {
+                                    montoPorCategoria[producto.nombreCategoria] = 0;
+                                }
+                                montoPorCategoria[producto.nombreCategoria] += detalle.subtotal;
+
+                                if (!productosPorMarca[producto.nombreMarca]) {
+                                    productosPorMarca[producto.nombreMarca] = 0;
+                                }
+                                productosPorMarca[producto.nombreMarca] += detalle.cantidad;
                             }
-                            productosPorMarca[producto.nombreMarca] += detalle.cantidad;
                         }
-                    }
-                });
-                categoriasEnPedido.forEach(categoria => {
-                    if (!pedidosPorCategoria[categoria]) {
-                        pedidosPorCategoria[categoria] = 0;
-                    }
-                    pedidosPorCategoria[categoria]++;
-                });
+                    });
+                    categoriasEnPedido.forEach(categoria => {
+                        if (!pedidosPorCategoria[categoria]) {
+                            pedidosPorCategoria[categoria] = 0;
+                        }
+                        pedidosPorCategoria[categoria]++;
+                    });
+                }
             });
 
             setDataCantidad({
@@ -121,87 +130,116 @@ export function EstadisticasUsuario() {
                 ]
             });
         }
-    }, [productos, pedidos, detallesPedidos]);
+    }, [productos, pedidos, detallesPedidos, fechaInicio, fechaFin]);
+
+    const handleFechaInicioChange = (e) => {
+        setFechaInicio(e.target.value);
+    }
+
+    const handleFechaFinChange = (e) => {
+        setFechaFin(e.target.value);
+    }
+
+    const noData = !dataCantidad.labels?.length && !dataMonto.labels?.length && !dataMarca.labels?.length;
 
     return (
         <div className={"text-center mt-3"}>
-            <h1>ESTADÍSTICAS</h1>
-            {dataCantidad.labels && dataCantidad.labels.length > 0 && (
-                <Bar
-                    data={dataCantidad}
-                    options={{
-                        responsive: true,
-                        plugins: {
-                            legend: {position: 'top'},
-                            title: {display: true, text: 'Cantidad de pedidos por Categoría'}
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 1
-                                }
-                            }
-                        }
-                    }}
-                />
-            )}
-            <div className={"mb-5 mt-2"}>
-                <span className={"fw-light card d-inline-block"} style={{padding: "8px"}}>
-                    Si un pedido tiene un item de cierta categoria (sin importar los demas items), este se cuenta para el recuento de pedidos de dicha categoria
-                </span>
+            <h1 className={"mb-4"}>ESTADÍSTICAS</h1>
+            <div className={"mb-3"}>
+                <label className={"me-2"}>Fecha Inicio:</label>
+                <input type="date" value={fechaInicio} onChange={handleFechaInicioChange} />
+                <label className={"ms-3 me-2"}>Fecha Fin:</label>
+                <input type="date" value={fechaFin} onChange={handleFechaFinChange} />
             </div>
-            {dataMonto.labels && dataMonto.labels.length > 0 && (
-                <Bar
-                    data={dataMonto}
-                    options={{
-                        responsive: true,
-                        plugins: {
-                            legend: {position: 'top'},
-                            title: {display: true, text: 'Monto total gastado por Categoría'}
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 1000
-                                }
-                            }
-                        }
-                    }}
-                />
+            {noData ? (
+                <div className={"text-center mt-5"}>
+                    <h2>Por favor, ingresar una fecha válida.</h2>
+                </div>
+            ) : (
+                <>
+                    {dataCantidad.labels && dataCantidad.labels.length > 0 && (
+                        <>
+                            <Bar
+                                data={dataCantidad}
+                                options={{
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {position: 'top'},
+                                        title: {display: true, text: 'Cantidad de pedidos por Categoría'}
+                                    },
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            ticks: {
+                                                stepSize: 1
+                                            }
+                                        }
+                                    }
+                                }}
+                            />
+                            <div className={"mb-5 mt-2"}>
+                                <span className={"fw-light card d-inline-block"} style={{padding: "8px"}}>
+                                    Si un pedido tiene un item de cierta categoria (sin importar los demas items), este se cuenta para el recuento de pedidos de dicha categoria
+                                </span>
+                            </div>
+                        </>
+                    )}
+                    {dataMonto.labels && dataMonto.labels.length > 0 && (
+                        <>
+                            <Bar
+                                data={dataMonto}
+                                options={{
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {position: 'top'},
+                                        title: {display: true, text: 'Monto total gastado por Categoría'}
+                                    },
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            ticks: {
+                                                stepSize: 1000
+                                            }
+                                        }
+                                    }
+                                }}
+                            />
+                            <div className={"mb-5 mt-2"}>
+                                <span className={"fw-light card d-inline-block"} style={{padding: "8px"}}>
+                                    Se suman los subtotales de los pedidos de items de cierta categoria
+                                </span>
+                            </div>
+                        </>
+                    )}
+                    {dataMarca.labels && dataMarca.labels.length > 0 && (
+                        <>
+                            <Bar
+                                data={dataMarca}
+                                options={{
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {position: 'top'},
+                                        title: {display: true, text: 'Cantidad de productos comprados por Marca'}
+                                    },
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true,
+                                            ticks: {
+                                                stepSize: 1
+                                            }
+                                        }
+                                    }
+                                }}
+                            />
+                            <div className={"mb-5 mt-2"}>
+                                <span className={"fw-light card d-inline-block"} style={{padding: "8px"}}>
+                                    Se suman la cantidad de productos por marca de todos los pedidos
+                                </span>
+                            </div>
+                        </>
+                    )}
+                </>
             )}
-            <div className={"mb-5 mt-2"}>
-                <span className={"fw-light card d-inline-block"} style={{padding: "8px"}}>
-                    Se suman los subtotales de los pedidos de items de cierta categoria
-                </span>
-            </div>
-            {dataMarca.labels && dataMarca.labels.length > 0 && (
-                <Bar
-                    data={dataMarca}
-                    options={{
-                        responsive: true,
-                        plugins: {
-                            legend: {position: 'top'},
-                            title: {display: true, text: 'Cantidad de productos comprados por Marca'}
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 1
-                                }
-                            }
-                        }
-                    }}
-                />
-            )}
-            <div className={"mb-5 mt-2"}>
-                <span className={"fw-light card d-inline-block"} style={{padding: "8px"}}>
-                    Se suman la cantidad de productos por marca de todos los pedidos
-                </span>
-            </div>
         </div>
-
     );
 }

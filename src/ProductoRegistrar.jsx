@@ -142,6 +142,7 @@ export function ProductoRegistrar() {
                         name="precio"
                         required={true}
                         value={precio}
+                        min={1}
                         onChange={(e) => onInputChange(e)}
                     />
                 </div>
@@ -154,6 +155,7 @@ export function ProductoRegistrar() {
                         name="stock"
                         required={true}
                         value={stock}
+                        min={1}
                         onChange={(e) => onInputChange(e)}
                     ></input>
                 </div>
