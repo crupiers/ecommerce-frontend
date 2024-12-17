@@ -22,7 +22,8 @@ export function RegisterPage() {
             localStorage.setItem("username", response.data["nombre"]);
             navigate("/");
         } catch (error) {
-            alert(`ERROR AL REGISTRAR USUARIO: \n${error.response.data}`);
+            console.log(error)
+            alert(`ERROR AL REGISTRAR USUARIO: \n${error.response.data.details.join('\n')}`);
         }
     }
 

@@ -22,6 +22,8 @@ import {ProductoAuditoria} from "./ProductoAuditoria.jsx";
 import {MovimientoStockAuditoria} from "./MovimientoStockAuditoria.jsx";
 import {Catalogo} from "./Catalogo.jsx";
 import {Carrito} from "./Carrito.jsx";
+import {UsuarioPedidos} from "./UsuarioPedidos.jsx";
+import {PedidoAuditoria} from "./PedidoAuditoria.jsx";
 
 function App() {
     return (
@@ -55,6 +57,8 @@ function App() {
                     <Route path="/productos/auditoria" element={<ProductoAuditoria/>}/>
                     <Route path="/catalogo" element={<Catalogo/>}/>
                     <Route path="/carrito" element={<Carrito/>}/>
+                    <Route path="/usuarios/pedidos" element={<UsuarioPedidos/>}/>
+                    <Route path="/pedidos/auditoria" element={<PedidoAuditoria/>}/>
                 </Route>
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
             </Routes>

@@ -74,6 +74,7 @@ export function ColorAuditoria() {
                     <th>Acción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredColores.map((color, indice) => (
                     <tr key={indice}>
                         <td>{color.id}</td>
@@ -99,6 +100,7 @@ export function ColorAuditoria() {
                         }
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     )

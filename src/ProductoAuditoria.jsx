@@ -83,6 +83,7 @@ export function ProductoAuditoria() {
                     <th>Acción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredProductos.map((producto, indice) => (
                     <tr key={indice}>
                         <td>{producto.id}</td>
@@ -122,6 +123,7 @@ export function ProductoAuditoria() {
                         }
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     )

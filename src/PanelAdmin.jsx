@@ -25,6 +25,9 @@ function PanelAdmin() {
                     <NavDropdown.Item as={Link} to={"/productos/movimientoStock/auditoria"}>
                         MOVIMIENTO STOCK
                     </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to={"/pedidos/auditoria"}>
+                        PEDIDOS
+                    </NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title="REGISTRAR" id="basic-nav-dropdown">

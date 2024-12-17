@@ -78,6 +78,7 @@ export function MovimientoStockAuditoria() {
                     <th>Producto asociado</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredMovimientosStock.map((movimientoStock, indice) => {
                     const productoAsociado = productos.find(producto =>
                         producto.movimientos.some(movimiento => movimiento.id === movimientoStock.id)
@@ -95,6 +96,7 @@ export function MovimientoStockAuditoria() {
                         </tr>
                     );
                 })}
+                </tbody>
             </Table>
         </div>
     )

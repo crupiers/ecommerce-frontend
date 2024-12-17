@@ -48,6 +48,7 @@ function ColorListar() {
                     <th>Descripción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredColores.map((color, indice) => (
                     <tr key={indice}>
                         <td>{color.id}</td>
@@ -55,6 +56,7 @@ function ColorListar() {
                         <td>{color.descripcion}</td>
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     );

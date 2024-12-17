@@ -1,29 +1,29 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient.js";
-import {Form, Table} from "react-bootstrap";
+import {Table, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
 export function MarcaAuditoria() {
 
+    const [marcas, setMarcas] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+
     useEffect(() => {
         getMarcas();
     }, []);
-
-    const [marcas, setMarcas] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
 
     const getMarcas = async () => {
         try {
             const value = await AXIOS_CLIENT.get("/admin/marcas/auditoria");
             setMarcas(value.data);
         } catch (error) {
-            alert(`ERROR AL OBTENER MARCAS: ${error.response && error.response.status === 403 ? "\nNO TIENE LOS PERMISOS SUFICIENTES" : `\n${error.response.data.message}`}`);
+            alert(`ERROR AL OBTENER MARCAS: \n${error.response.data.message}`);
         }
     }
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
-    };
+    }
 
     const filteredMarcas = marcas.filter(marca =>
         marca.nombre.toLowerCase().includes(searchTerm.toLowerCase())
@@ -74,6 +74,7 @@ export function MarcaAuditoria() {
                     <th>Acción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredMarcas.map((marca, indice) => (
                     <tr key={indice}>
                         <td>{marca.id}</td>
@@ -85,20 +86,16 @@ export function MarcaAuditoria() {
                         <td>{marca.updatedAt}</td>
                         <td>{marca.deletedAt === null ? "N/A" : marca.deletedAt}</td>
                         <td>{marca.estado === 0 ? "ACTIVO" : "ELIMINADO"}</td>
-                        {
-                            <td>
-                                {
-                                    marca.estado === 0 ?
-                                        <Link to="#" className={"bg-transparent text-danger"}
-                                              onClick={() => eliminarMarca(marca.id)}>Eliminar</Link>
-                                        :
-                                        <Link to="#" className={"bg-transparent text-success"}
-                                              onClick={() => activarMarca(marca.id)}>Activar</Link>
-                                }
-                            </td>
-                        }
+                        <td>
+                            {marca.estado === 0 ? (
+                                <Link to="#" className={"bg-transparent text-danger"} onClick={() => eliminarMarca(marca.id)}>Eliminar</Link>
+                            ) : (
+                                <Link to="#" className={"bg-transparent text-success"} onClick={() => activarMarca(marca.id)}>Activar</Link>
+                            )}
+                        </td>
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     )

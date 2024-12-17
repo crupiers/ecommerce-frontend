@@ -48,6 +48,7 @@ function MarcaListar() {
                     <th>Descripción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredMarcas.map((marca, indice) => (
                     <tr key={indice}>
                         <td>{marca.id}</td>
@@ -55,6 +56,7 @@ function MarcaListar() {
                         <td>{marca.descripcion}</td>
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     );

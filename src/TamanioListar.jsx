@@ -48,6 +48,7 @@ function TamanioListar() {
                     <th>Descripción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredTamanios.map((tamanio, indice) => (
                     <tr key={indice}>
                         <td>{tamanio.id}</td>
@@ -55,6 +56,7 @@ function TamanioListar() {
                         <td>{tamanio.descripcion}</td>
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     )

@@ -48,6 +48,7 @@ function CategoriaListar() {
                     <th>Descripción</th>
                 </tr>
                 </thead>
+                <tbody>
                 {filteredCategorias.map((categoria, indice) => (
                     <tr key={indice}>
                         <td>{categoria.id}</td>
@@ -55,6 +56,7 @@ function CategoriaListar() {
                         <td>{categoria.descripcion}</td>
                     </tr>
                 ))}
+                </tbody>
             </Table>
         </div>
     );
