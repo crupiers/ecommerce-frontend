@@ -284,9 +284,37 @@ export function EstadisticasAdmin() {
         .sort((a, b) => b.cantidadVendida - a.cantidadVendida)
         .slice(0, cantidadProductosCategoria);
 
+    const productosBajoStock = productos.filter(producto =>
+        producto.stock<producto.umbral
+    );
+    
     return (
         <div className={"text-center mt-3"}>
             <h1 className={"mb-4"}>ESTADÍSTICAS ADMIN</h1>
+            <div className={"text-center mt-3"}>
+                <h2>PRODUCTOS QUE ESTÁN DEBAJO DEL UMBRAL DE STOCK</h2>
+                <Table className={"mt-3"} bordered>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Umbral</th>
+                    <th>Stock</th>
+                </tr>
+                </thead>
+                <tbody>
+                {productosBajoStock.map((producto, indice) => (
+                    <tr key={indice}>
+                        <td>{producto.id}</td>
+                        <td>{producto.nombre}</td>
+                        <td>{producto.umbral}</td>
+                        <td>{producto.stock}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </Table>
+            </div>
+            <span>&#8203;</span>
             <div className={"mb-3"}>
                 <label className={"me-2"}>Fecha Inicio:</label>
                 <input type="date" value={fechaInicio} onChange={handleFechaInicioChange}/>
