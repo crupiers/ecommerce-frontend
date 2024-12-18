@@ -316,6 +316,7 @@ export function EstadisticasAdmin() {
             </div>
             <span>&#8203;</span>
             <div className={"mb-3"}>
+                <h2>ESTADÍSTICAS SEGÚN MARCA Y CATEGORÍA</h2>
                 <label className={"me-2"}>Fecha Inicio:</label>
                 <input type="date" value={fechaInicio} onChange={handleFechaInicioChange}/>
                 <label className={"ms-3 me-2"}>Fecha Fin:</label>
