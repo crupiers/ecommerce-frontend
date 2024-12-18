@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function MarcaActualizar() {
+    let navegacion = useNavigate();
 const { id } = useParams();
 
     const [marca, setMarca] = useState({
@@ -58,7 +59,8 @@ const { id } = useParams();
 
             // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información del tamaño.
             await AXIOS_CLIENT.put(`marcas/actualizar/${id}`, marca);
-            alert("MARCA ACTUALIZADA CON ÉXITO")
+            alert("MARCA ACTUALIZADA CON ÉXITO");
+            navegacion("/marcas/listar");
         } catch (error) {
             alert("ERROR AL ACTUALIZAR MARCA", error);
         }

@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CategoriaActualizar() {
+    let navegacion = useNavigate();
     const { id } = useParams();
 
     const [Categoria, setCategoria] = useState({});
@@ -63,7 +64,8 @@ function CategoriaActualizar() {
 
             // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información de la Categoria.
             await AXIOS_CLIENT.put(`/categorias/actualizar/${id}`, Categoria);
-            alert("CATEGORIA ACTUALIZADA CON ÉXITO")
+            alert("CATEGORIA ACTUALIZADA CON ÉXITO");
+            navegacion("/categorias/listar");
         } catch (error) {
             alert("ERROR AL ACTUALIZAR CATEGORÍA", error);
         }

@@ -1,9 +1,10 @@
 import {AXIOS_CLIENT} from "./lib/axiosClient.js";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function ProductoActualizar() {
+    let navegacion = useNavigate();
     const { id } = useParams();
 
     const [colores, setColores] = useState([]);
@@ -98,7 +99,7 @@ async function getIdPorNombre(array, nombre) {
         try {
             await AXIOS_CLIENT.put(`/productos/actualizar/${id}`, Producto);
             alert("PRODUCTO ACTUALIZADO CON ÉXITO");
-            window.location.reload();
+            navegacion("/productos/listar");
         } catch (error) {
             alert(`ERROR AL ACTUALIZAR PRODUCTO: \n${error.response.data.message}`);
         }

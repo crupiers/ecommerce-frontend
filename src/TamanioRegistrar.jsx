@@ -62,7 +62,7 @@ function TamanioRegistrar() {
             </div>
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="mb-3">
-                    <label htmlFor="nombre" className="form-label">NOMBRE</label>
+                    <label htmlFor="nombre" className="form-label">NOMBRE (no se puede poner la letra "ñ")</label>
                     <input
                         type="text"
                         className="form-control"

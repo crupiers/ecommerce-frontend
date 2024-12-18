@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ColorActualizar() {
+    let navegacion = useNavigate();
 
     const { id } = useParams();
 
@@ -62,7 +63,8 @@ function ColorActualizar() {
 
             // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información de la Color.
             await AXIOS_CLIENT.put(`colores/actualizar/${id}`, Color);
-            alert("COLOR ACTUALIZADO CON ÉXITO")
+            alert("COLOR ACTUALIZADO CON ÉXITO");
+            navegacion("/colores/listar");
         } catch (error) {
             alert("ERROR AL ACTUALIZAR COLOR", error);
         }

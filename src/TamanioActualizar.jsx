@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function TamanioActualizar() {
-
+    let navegacion = useNavigate();
     const { id } = useParams();
 
     const [Tamanio, setTamanio] = useState({
@@ -62,7 +62,8 @@ function TamanioActualizar() {
              */
             // Utilizar Axios para realizar una petición POST a la URL declarada, enviando la información del tamaño.
             await AXIOS_CLIENT.put(`tamanios/actualizar/${id}`, Tamanio);
-            alert("TAMAÑO ACTUALIZADO CON ÉXITO")
+            alert("TAMAÑO ACTUALIZADO CON ÉXITO");
+            navegacion("/tamanios/listar");
         } catch (error) {
             alert("ERROR AL ACTUALIZAR TAMAÑO", error);
         }
@@ -75,7 +76,7 @@ function TamanioActualizar() {
             </div>
             <form onSubmit={(e) => onSubmit(e)}>
                 <div className="mb-3">
-                    <label htmlFor="nombre" className="form-label">NOMBRE</label>
+                    <label htmlFor="nombre" className="form-label">NOMBRE (no se puede poner la letra "ñ")</label>
                     <input
                         type="text"
                         className="form-control"
