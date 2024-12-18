@@ -26,6 +26,7 @@ import {UsuarioPedidos} from "./UsuarioPedidos.jsx";
 import {PedidoAuditoria} from "./PedidoAuditoria.jsx";
 import {EstadisticasUsuario} from "./EstadisticasUsuario.jsx";
 import {EstadisticasAdmin} from "./EstadisticasAdmin.jsx";
+import { ProductoActualizar } from "./ProductoActualizar.jsx";
 
 function App() {
     return (
@@ -63,6 +64,7 @@ function App() {
                     <Route path="/pedidos/auditoria" element={<PedidoAuditoria/>}/>
                     <Route path="/estadisticas" element={<EstadisticasUsuario/>}/>
                     <Route path="/estadisticas/admin" element={<EstadisticasAdmin/>}/>
+                    <Route path="/productos/actualizar/:id" element={<ProductoActualizar/>}/>
                 </Route>
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
             </Routes>

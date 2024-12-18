@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient.js";
 import {Form, Table} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 
 export function ProductoListar() {
@@ -54,6 +55,7 @@ export function ProductoListar() {
                     <th>Tamaño</th>
                     <th>Color</th>
                     <th>Código de barra</th>
+                    <th>Actualizar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,6 +72,13 @@ export function ProductoListar() {
                         <td>{producto.nombreTamanio}</td>
                         <td>{producto.nombreColor}</td>
                         <td>{producto.codigoBarra}</td>
+                        <td>
+                            <Link
+                            to={`/productos/actualizar/${producto.id}`}
+                            className="btn btn-link btn-sm me-3">
+                                Actualizar
+                            </Link>
+                        </td>
                     </tr>
                 ))}
                 </tbody>
