@@ -19,8 +19,12 @@ export function EstadisticasAdmin() {
     const [productos, setProductos] = useState([]);
     const [dataMarca, setDataMarca] = useState({});
     const [dataCategoria, setDataCategoria] = useState({});
+    const [dataMontoMarca, setDataMontoMarca] = useState({});
+    const [dataMontoCategoria, setDataMontoCategoria] = useState({});
     const [dataPieMarca, setDataPieMarca] = useState({});
     const [dataPieCategoria, setDataPieCategoria] = useState({});
+    const [dataMontoPieMarca, setDataMontoPieMarca] = useState({});
+    const [dataMontoPieCategoria, setDataMontoPieCategoria] = useState({});
     const [fechaInicio, setFechaInicio] = useState("");
     const [fechaFin, setFechaFin] = useState("");
     const [topNMarcas, setTopNMarcas] = useState(3);
@@ -61,6 +65,8 @@ export function EstadisticasAdmin() {
         if (productos.length > 0 && pedidos.length > 0 && detallesPedidos.length > 0) {
             const productosPorMarca = {};
             const productosPorCategoria = {};
+            const montoPorMarca = {};
+            const montoPorCategoria = {};
 
             const fechaInicioDate = new Date(fechaInicio);
             const fechaFinDate = new Date(fechaFin);
@@ -76,13 +82,16 @@ export function EstadisticasAdmin() {
                             if (producto) {
                                 if (!productosPorMarca[producto.nombreMarca]) {
                                     productosPorMarca[producto.nombreMarca] = 0;
+                                    montoPorMarca[producto.nombreMarca] = 0;
                                 }
-                                productosPorMarca[producto.nombreMarca] += detalle.cantidad;
-
                                 if (!productosPorCategoria[producto.nombreCategoria]) {
                                     productosPorCategoria[producto.nombreCategoria] = 0;
+                                    montoPorCategoria[producto.nombreCategoria] = 0;
                                 }
+                                productosPorMarca[producto.nombreMarca] += detalle.cantidad;
                                 productosPorCategoria[producto.nombreCategoria] += detalle.cantidad;
+                                montoPorMarca[producto.nombreMarca] += detalle.cantidad * producto.precio;
+                                montoPorCategoria[producto.nombreCategoria] += detalle.cantidad * producto.precio;
                             }
                         }
                     });
@@ -115,13 +124,39 @@ export function EstadisticasAdmin() {
                 ]
             });
 
+            setDataMontoMarca({
+                labels: Object.keys(montoPorMarca),
+                datasets: [
+                    {
+                        label: 'Monto total recaudado',
+                        data: Object.values(montoPorMarca),
+                        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            });
+
+            setDataMontoCategoria({
+                labels: Object.keys(montoPorCategoria),
+                datasets: [
+                    {
+                        label: 'Monto total recaudado',
+                        data: Object.values(montoPorCategoria),
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            });
+
             const topMarcas = Object.entries(productosPorMarca)
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, topNMarcas);
             const otrasMarcas = Object.entries(productosPorMarca)
                 .sort((a, b) => b[1] - a[1])
                 .slice(topNMarcas)
-                .reduce((acc, [key, value]) => acc + value, 0);
+                .reduce((acc, [, value]) => acc + value, 0);
 
             const topCategorias = Object.entries(productosPorCategoria)
                 .sort((a, b) => b[1] - a[1])
@@ -129,7 +164,7 @@ export function EstadisticasAdmin() {
             const otrasCategorias = Object.entries(productosPorCategoria)
                 .sort((a, b) => b[1] - a[1])
                 .slice(topNCategorias)
-                .reduce((acc, [key, value]) => acc + value, 0);
+                .reduce((acc, [, value]) => acc + value, 0);
 
             setDataPieMarca({
                 labels: [...topMarcas.map(([key]) => key), 'Otras'],
@@ -147,6 +182,44 @@ export function EstadisticasAdmin() {
                 datasets: [
                     {
                         data: [...topCategorias.map(([, value]) => value), otrasCategorias],
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB'],
+                        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB']
+                    }
+                ]
+            });
+
+            const topMontoMarcas = Object.entries(montoPorMarca)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, topNMarcas);
+            const otrasMontoMarcas = Object.entries(montoPorMarca)
+                .sort((a, b) => b[1] - a[1])
+                .slice(topNMarcas)
+                .reduce((acc, [, value]) => acc + value, 0);
+
+            const topMontoCategorias = Object.entries(montoPorCategoria)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, topNCategorias);
+            const otrasMontoCategorias = Object.entries(montoPorCategoria)
+                .sort((a, b) => b[1] - a[1])
+                .slice(topNCategorias)
+                .reduce((acc, [, value]) => acc + value, 0);
+
+            setDataMontoPieMarca({
+                labels: [...topMontoMarcas.map(([key]) => key), 'Otras'],
+                datasets: [
+                    {
+                        data: [...topMontoMarcas.map(([, value]) => value), otrasMontoMarcas],
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB'],
+                        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB']
+                    }
+                ]
+            });
+
+            setDataMontoPieCategoria({
+                labels: [...topMontoCategorias.map(([key]) => key), 'Otras'],
+                datasets: [
+                    {
+                        data: [...topMontoCategorias.map(([, value]) => value), otrasMontoCategorias],
                         backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB'],
                         hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#CCCCCC', '#4BC0C0', '#9966FF', '#FF9F40', '#FFCD56', '#C9CBCF', '#36A2EB']
                     }
@@ -228,90 +301,167 @@ export function EstadisticasAdmin() {
                 <>
                     {dataMarca.labels && dataMarca.labels.length > 0 && (
                         <>
-                            <Bar
-                                data={dataMarca}
-                                options={{
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            position: 'top',
-                                        },
-                                        title: {
-                                            display: true,
-                                            text: 'Cantidad de productos vendidos por Marca',
-                                        },
-                                    },
-                                }}
+                            <Bar className={"mb-5"}
+                                 data={dataMarca}
+                                 options={{
+                                     responsive: true,
+                                     plugins: {
+                                         legend: {
+                                             position: 'top',
+                                         },
+                                         title: {
+                                             display: true,
+                                             text: 'Cantidad de productos vendidos por marca'
+                                         },
+                                     },
+                                 }}
                             />
                         </>
                     )}
                     {dataCategoria.labels && dataCategoria.labels.length > 0 && (
                         <>
-                            <Bar
-                                data={dataCategoria}
-                                options={{
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            position: 'top',
-                                        },
-                                        title: {
-                                            display: true,
-                                            text: 'Cantidad de productos vendidos por Categoría',
-                                        },
-                                    },
-                                }}
+                            <Bar className={"mb-5"}
+                                 data={dataCategoria}
+                                 options={{
+                                     responsive: true,
+                                     plugins: {
+                                         legend: {
+                                             position: 'top',
+                                         },
+                                         title: {
+                                             display: true,
+                                             text: 'Cantidad de productos vendidos por categoría'
+                                         },
+                                     },
+                                 }}
+                            />
+                        </>
+                    )}
+                    {dataMontoMarca.labels && dataMontoMarca.labels.length > 0 && (
+                        <>
+                            <Bar className={"mb-5"}
+                                 data={dataMontoMarca}
+                                 options={{
+                                     responsive: true,
+                                     plugins: {
+                                         legend: {
+                                             position: 'top',
+                                         },
+                                         title: {
+                                             display: true,
+                                             text: 'Monto total recaudado por marca'
+                                         },
+                                     },
+                                 }}
+                            />
+                        </>
+                    )}
+                    {dataMontoCategoria.labels && dataMontoCategoria.labels.length > 0 && (
+                        <>
+                            <Bar className={"mb-5"}
+                                 data={dataMontoCategoria}
+                                 options={{
+                                     responsive: true,
+                                     plugins: {
+                                         legend: {
+                                             position: 'top',
+                                         },
+                                         title: {
+                                             display: true,
+                                             text: 'Monto total recaudado por categoría'
+                                         },
+                                     },
+                                 }}
                             />
                         </>
                     )}
                     {dataPieMarca.labels && dataPieMarca.labels.length > 0 && (
-                        <div>
+                        <div className="text-center">
                             <div className={"mb-3 mt-3"}>
                                 <label className={"me-2"}>Top Nº Marcas:</label>
                                 <input type="number" value={topNMarcas} onChange={handleTopNMarcasChange} min="1"/>
                             </div>
-                            <div className={"mb-5"} style={{width: '80%', height: '500px', margin: '0 auto'}}>
-                                <Pie className={"mb-5"} style={{width: '80%', height: '500px', margin: '0 auto'}}
-                                     data={dataPieMarca}
-                                     options={{
-                                         responsive: true,
-                                         plugins: {
-                                             legend: {
-                                                 position: 'top',
-                                             },
-                                             title: {
-                                                 display: true,
-                                                 text: 'Distribución de productos vendidos por Marca',
-                                             },
-                                         },
-                                     }}
-                                />
+                            <div className="d-flex justify-content-center align-items-center">
+                                <div className={"mb-5"} style={{width: '40%', height: '500px'}}>
+                                    <Pie
+                                        data={dataPieMarca}
+                                        options={{
+                                            responsive: true,
+                                            plugins: {
+                                                legend: {
+                                                    position: 'top',
+                                                },
+                                                title: {
+                                                    display: true,
+                                                    text: 'Distribución de Ventas por Marca',
+                                                },
+                                            },
+                                        }}
+                                    />
+                                </div>
+                                <div className={"mb-5"} style={{width: '40%', height: '500px'}}>
+                                    <Pie
+                                        data={dataMontoPieMarca}
+                                        options={{
+                                            responsive: true,
+                                            plugins: {
+                                                legend: {
+                                                    position: 'top',
+                                                },
+                                                title: {
+                                                    display: true,
+                                                    text: 'Monto Total Recaudado por Marca',
+                                                },
+                                            },
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     )}
+
                     {dataPieCategoria.labels && dataPieCategoria.labels.length > 0 && (
-                        <div>
-                            <div className={"mb-3"}>
+                        <div className="text-center">
+                            <div className={"mb-3 mt-3"}>
                                 <label className={"me-2"}>Top Nº Categorías:</label>
                                 <input type="number" value={topNCategorias} onChange={handleTopNCategoriasChange}
                                        min="1"/>
                             </div>
-                            <div className={"mb-5 d-flex justify-content-center"} style={{height: '500px'}}>
-                                <Pie
-                                    data={dataPieCategoria}
-                                    options={{
-                                        responsive: true,
-                                        plugins: {
-                                            legend: {
-                                                position: 'top',
+                            <div className={"d-flex justify-content-center align-items-center"}>
+                                <div className={"mb-5"} style={{width: '40%', height: '500px'}}>
+                                    <Pie
+                                        data={dataPieCategoria}
+                                        options={{
+                                            responsive: true,
+                                            plugins: {
+                                                legend: {
+                                                    position: 'top',
+                                                },
+                                                title: {
+                                                    display: true,
+                                                    text: 'Distribución de Ventas por Categoría',
+                                                },
                                             },
-                                            title: {
-                                                display: true,
-                                                text: 'Distribución de productos vendidos por Categoría',
+                                        }}
+                                    />
+                                </div>
+                                <div className={"mb-5"} style={{width: '40%', height: '500px'}}>
+                                    <Pie
+                                        data={dataMontoPieCategoria}
+                                        options={{
+                                            responsive: true,
+                                            plugins: {
+                                                legend: {
+                                                    position: 'top',
+                                                },
+                                                title: {
+                                                    display: true,
+                                                    text: 'Monto Total Recaudado por Categoría',
+                                                },
                                             },
-                                        },
-                                    }}
-                                />
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </div>
                     )}
