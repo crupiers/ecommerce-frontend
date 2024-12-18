@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 import {Table} from "react-bootstrap";
 import {Form} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function MarcaListar() {
     const url = "/marcas";
@@ -46,6 +47,7 @@ function MarcaListar() {
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Actualizar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,6 +56,13 @@ function MarcaListar() {
                         <td>{marca.id}</td>
                         <td>{marca.nombre}</td>
                         <td>{marca.descripcion}</td>
+                        <td>
+                            <Link
+                            to={`/marcas/actualizar/${marca.id}`}
+                            className="btn btn-link btn-sm me-3">
+                                Actualizar
+                            </Link>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

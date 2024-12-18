@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient"
 import {Table} from "react-bootstrap";
 import {Form} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function ColorListar() {
     const url = "/colores";
@@ -46,6 +47,7 @@ function ColorListar() {
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Actualizar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,6 +56,13 @@ function ColorListar() {
                         <td>{color.id}</td>
                         <td>{color.nombre}</td>
                         <td>{color.descripcion}</td>
+                        <td>
+                            <Link
+                            to={`/colores/actualizar/${color.id}`}
+                            className="btn btn-link btn-sm me-3">
+                                Actualizar
+                            </Link>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

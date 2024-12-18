@@ -27,6 +27,10 @@ import {PedidoAuditoria} from "./PedidoAuditoria.jsx";
 import {EstadisticasUsuario} from "./EstadisticasUsuario.jsx";
 import {EstadisticasAdmin} from "./EstadisticasAdmin.jsx";
 import { ProductoActualizar } from "./ProductoActualizar.jsx";
+import  ColorActualizar  from "./ColorActualizar.jsx";
+import CategoriaActualizar  from "./CategoriaActualizar.jsx";
+import  MarcaActualizar  from "./MarcaActualizar.jsx";
+import  TamanioActualizar  from "./TamanioActualizar.jsx";
 
 function App() {
     return (
@@ -65,6 +69,10 @@ function App() {
                     <Route path="/estadisticas" element={<EstadisticasUsuario/>}/>
                     <Route path="/estadisticas/admin" element={<EstadisticasAdmin/>}/>
                     <Route path="/productos/actualizar/:id" element={<ProductoActualizar/>}/>
+                    <Route path="/colores/actualizar/:id" element={<ColorActualizar/>}/>
+                    <Route path="/categorias/actualizar/:id" element={<CategoriaActualizar/>}/>
+                    <Route path="/marcas/actualizar/:id" element={<MarcaActualizar/>}/>
+                    <Route path="/tamanios/actualizar/:id" element={<TamanioActualizar/>}/>
                 </Route>
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
             </Routes>
