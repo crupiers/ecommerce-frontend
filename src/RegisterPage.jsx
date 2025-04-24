@@ -12,9 +12,11 @@ export function RegisterPage() {
         event.preventDefault();
 
         try {
+            let fechaNacimiento = new Date (2000,1,1);
             const response = await AXIOS_CLIENT.post("/auth/register", {
                 nombre: nombre,
                 contrasenia: contrasenia,
+                fechaNacimiento: fechaNacimiento,
             });
             localStorage.setItem("token", response.data["jwt"]);
             localStorage.setItem("userId", response.data["id"]);
