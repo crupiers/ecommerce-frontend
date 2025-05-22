@@ -31,6 +31,7 @@ import  ColorActualizar  from "./ColorActualizar.jsx";
 import CategoriaActualizar  from "./CategoriaActualizar.jsx";
 import  MarcaActualizar  from "./MarcaActualizar.jsx";
 import  TamanioActualizar  from "./TamanioActualizar.jsx";
+import { AdminRoute } from "./AdminRoute.js";
 
 function App() {
     return (
@@ -55,7 +56,9 @@ function App() {
                     <Route path="/tamanios/auditoria" element={<TamanioAuditoria/>}/>
                     <Route path="/marcas/registrar" element={<MarcaRegistrar/>}/>
                     <Route path="/marcas/listar" element={<MarcaListar/>}/>
-                    <Route path="/marcas/auditoria" element={<MarcaAuditoria/>}/>
+                    <Route path="/marcas/auditoria" element={<AdminRoute>
+                        <MarcaAuditoria />
+                    </AdminRoute>}/>
                     <Route path="/usuarios/actualizar" element={<UsuarioActualizar/>}/>
                     <Route path="/productos/movimientoStock" element={<MovimientoStockRegistrar/>}/>
                     <Route path="/productos/movimientoStock/auditoria" element={<MovimientoStockAuditoria/>}/>
