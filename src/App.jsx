@@ -37,6 +37,8 @@ function App() {
     return (
         <Router>
             <Routes>
+                #home, protego la ruta para que se vea si tengo cuenta
+                #sobre esta raiz pongo las demas rutas que no sean de logueo
                 <Route
                     path={"/"}
                     element={
@@ -45,38 +47,154 @@ function App() {
                         </ProtectedRoute>
                     }
                 >
-                    <Route path="/colores/registrar" element={<ColorRegistrar/>}/>
-                    <Route path="/colores/listar" element={<ColorListar/>}/>
-                    <Route path="/colores/auditoria" element={<ColorAuditoria/>}/>
-                    <Route path="/categorias/registrar" element={<CategoriaRegistrar/>}/>
-                    <Route path="/categorias/listar" element={<CategoriaListar/>}/>
-                    <Route path="/categorias/auditoria" element={<CategoriaAuditoria/>}/>
-                    <Route path="/tamanios/registrar" element={<TamanioRegistrar/>}/>
-                    <Route path="/tamanios/listar" element={<TamanioListar/>}/>
-                    <Route path="/tamanios/auditoria" element={<TamanioAuditoria/>}/>
-                    <Route path="/marcas/registrar" element={<MarcaRegistrar/>}/>
-                    <Route path="/marcas/listar" element={<MarcaListar/>}/>
-                    <Route path="/marcas/auditoria" element={<AdminRoute>
-                        <MarcaAuditoria />
-                    </AdminRoute>}/>
-                    <Route path="/usuarios/actualizar" element={<UsuarioActualizar/>}/>
-                    <Route path="/productos/movimientoStock" element={<MovimientoStockRegistrar/>}/>
-                    <Route path="/productos/movimientoStock/auditoria" element={<MovimientoStockAuditoria/>}/>
-                    <Route path="/productos/registrar" element={<ProductoRegistrar/>}/>
-                    <Route path="/productos/listar" element={<ProductoListar/>}/>
-                    <Route path="/productos/auditoria" element={<ProductoAuditoria/>}/>
+
+                    #colores, dejo las rutas de administracion para admins
+                    <Route path="/colores/registrar" element={
+                        <AdminRoute>
+                            <ColorRegistrar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/colores/listar" element={
+                        <AdminRoute>
+                            <ColorListar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/colores/auditoria" element={
+                        <AdminRoute>
+                            <ColorAuditoria/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/colores/actualizar/:id" element={
+                        <AdminRoute>
+                            <ColorActualizar/>
+                        </AdminRoute>
+                        }/>
+                    
+                    #categorias
+                    <Route path="/categorias/registrar" element={
+                        <AdminRoute>
+                            <CategoriaRegistrar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/categorias/listar" element={
+                        <AdminRoute>
+                            <CategoriaListar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/categorias/auditoria" element={
+                        <AdminRoute>
+                            <CategoriaAuditoria/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/categorias/actualizar/:id" element={
+                        <AdminRoute>
+                            <CategoriaActualizar/>
+                        </AdminRoute>
+                        }/>
+
+                    #tamanios
+                    <Route path="/tamanios/registrar" element={
+                        <AdminRoute>
+                            <TamanioRegistrar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/tamanios/listar" element={
+                        <AdminRoute>
+                            <TamanioListar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/tamanios/auditoria" element={
+                        <AdminRoute>
+                            <TamanioAuditoria/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/tamanios/actualizar/:id" element={
+                        <AdminRoute>
+                            <TamanioActualizar/>
+                        </AdminRoute>
+                        }/>
+                    
+                    #marcas
+                    <Route path="/marcas/registrar" element={
+                        <AdminRoute>
+                            <MarcaRegistrar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/marcas/listar" element={
+                        <AdminRoute>
+                            <MarcaListar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/marcas/auditoria" element={
+                        <AdminRoute>
+                            <MarcaAuditoria/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/marcas/actualizar/:id" element={
+                        <AdminRoute>
+                            <MarcaActualizar/>
+                        </AdminRoute>
+                        }/>
+                    
+                    #productos
+                    <Route path="/productos/registrar" element={
+                        <AdminRoute>
+                            <ProductoRegistrar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/productos/listar" element={
+                        <AdminRoute>
+                            <ProductoListar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/productos/auditoria" element={
+                        <AdminRoute>
+                            <ProductoAuditoria/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/productos/actualizar/:id" element={
+                        <AdminRoute>
+                            <ProductoActualizar/>
+                        </AdminRoute>
+                        }/>
+
+                    #movimientosStock
+                    <Route path="/productos/movimientoStock" element={
+                        <AdminRoute>
+                            <MovimientoStockRegistrar/>
+                        </AdminRoute>
+                        }/>
+                    <Route path="/productos/movimientoStock/auditoria" element={
+                        <AdminRoute>
+                            <MovimientoStockAuditoria/>
+                        </AdminRoute>
+                        }/>
+
+                    #compras
                     <Route path="/catalogo" element={<Catalogo/>}/>
                     <Route path="/carrito" element={<Carrito/>}/>
+                    
+                    #pedidos
                     <Route path="/usuarios/pedidos" element={<UsuarioPedidos/>}/>
-                    <Route path="/pedidos/auditoria" element={<PedidoAuditoria/>}/>
+                    <Route path="/pedidos/auditoria" element={
+                        <AdminRoute>
+                            <PedidoAuditoria/>
+                        </AdminRoute>
+                        }/>
+                    
+                    #estadisticas
                     <Route path="/estadisticas" element={<EstadisticasUsuario/>}/>
-                    <Route path="/estadisticas/admin" element={<EstadisticasAdmin/>}/>
-                    <Route path="/productos/actualizar/:id" element={<ProductoActualizar/>}/>
-                    <Route path="/colores/actualizar/:id" element={<ColorActualizar/>}/>
-                    <Route path="/categorias/actualizar/:id" element={<CategoriaActualizar/>}/>
-                    <Route path="/marcas/actualizar/:id" element={<MarcaActualizar/>}/>
-                    <Route path="/tamanios/actualizar/:id" element={<TamanioActualizar/>}/>
+                    <Route path="/estadisticas/admin" element={
+                        <AdminRoute>
+                            <EstadisticasAdmin/>
+                        </AdminRoute>
+                        }/>
+                    
+                    #actualizarUsuario
+                    <Route path="/usuarios/actualizar" element={<UsuarioActualizar/>}/>
                 </Route>
+
+                #rutas de logueo
                 <Route path={"/auth/*"} element={<AuthRoutes/>}/>
             </Routes>
         </Router>
