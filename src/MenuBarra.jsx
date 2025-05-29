@@ -34,7 +34,7 @@ export function MenuBarra() {
                     }
                     <>
                         {localStorage.getItem("role") === "ROLE_ADMIN" ?
-                            <Button variant={"outline-danger"} className={"me-5 align-items-center d-flex"} onClick={handleOnClickAdminPanel}>
+                            <Button name="boton-de-admin" variant={"outline-danger"} className={"me-5 align-items-center d-flex"} onClick={handleOnClickAdminPanel}>
                                 <>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          className="bi bi-shield-fill me-2" viewBox="0 0 16 16">

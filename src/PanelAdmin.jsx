@@ -30,7 +30,7 @@ function PanelAdmin() {
                     </NavDropdown.Item>
                 </NavDropdown>
 
-                <NavDropdown title="REGISTRAR" id="basic-nav-dropdown">
+                <NavDropdown title="REGISTRAR" id="basic-nav-dropdown" data-cy="registrar-btn"> 
                     <NavDropdown.Item as={Link} to="/colores/registrar" className="text-nowrap">
                         REGISTRAR COLOR
                     </NavDropdown.Item>
@@ -43,7 +43,8 @@ function PanelAdmin() {
                     <NavDropdown.Item as={Link} to="/tamanios/registrar" className="text-nowrap">
                         REGISTRAR TAMAÑO
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/productos/registrar" className="text-nowrap">
+                    <NavDropdown.Item data-cy="registrar-producto-btn"
+                     as={Link} to="/productos/registrar" className="text-nowrap">
                         REGISTRAR PRODUCTO
                     </NavDropdown.Item>
                     <NavDropdown.Item as={Link} to="/productos/movimientoStock" className="text-nowrap">
