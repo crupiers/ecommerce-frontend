@@ -8,4 +8,5 @@ test('titulo, nombre y descripcion visibles', () => {
     expect(screen.getByText('REGISTRAR CATEGORÍA')).toBeInTheDocument();
     expect(screen.getByText('NOMBRE')).toBeInTheDocument();
     expect(screen.getByText('DESCRIPCIÓN')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /REGISTRAR/i })).toBeInTheDocument();
 })
