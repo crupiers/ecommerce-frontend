@@ -3,9 +3,10 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import MarcaRegistrar from '../MarcaRegistrar.jsx';
 
-test('titulo, nombre y descripcion visibles', () => {
+test('Registrar marca, nombre y descripcion', () => {
     render(<MarcaRegistrar/>);
     expect(screen.getByText('REGISTRAR MARCA')).toBeInTheDocument();
     expect(screen.getByText('NOMBRE')).toBeInTheDocument();
     expect(screen.getByText('DESCRIPCIÓN')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /REGISTRAR/i })).toBeInTheDocument();
 })
