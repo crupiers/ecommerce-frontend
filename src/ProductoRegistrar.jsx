@@ -1,3 +1,4 @@
+import React from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient.js";
 import {useEffect, useState} from "react";
 import {useDropzone} from "react-dropzone"

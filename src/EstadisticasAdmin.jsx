@@ -1,3 +1,4 @@
+import React from "react";
 import {useEffect, useState} from "react";
 import {AXIOS_CLIENT} from "./lib/axiosClient.js";
 import {Bar, Pie} from "react-chartjs-2";

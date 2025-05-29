@@ -1,3 +1,4 @@
+import React from "react";
 import {Route, Routes} from "react-router-dom";
 import {LoginPage} from "./LoginPage.jsx";
 import {AuthLayout} from "./AuthLayout.jsx";
