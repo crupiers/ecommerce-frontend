@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ColorRegistrar from '../ColorRegistrar.jsx';
+import CategoriaRegistrar from '../CategoriaRegistrar.jsx';
 
 test('titulo, nombre y descripcion visibles', () => {
-    render(<ColorRegistrar/>);
-    expect(screen.getByText('REGISTRAR COLOR')).toBeInTheDocument();
+    render(<CategoriaRegistrar/>);
+    expect(screen.getByText('REGISTRAR CATEGORÍA')).toBeInTheDocument();
     expect(screen.getByText('NOMBRE')).toBeInTheDocument();
     expect(screen.getByText('DESCRIPCIÓN')).toBeInTheDocument();
 })
