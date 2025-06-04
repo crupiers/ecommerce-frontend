@@ -1,0 +1,80 @@
+/* Fondo y layout general */
+
+body {
+  background-color: #14532d; /* verde oscuro, ajusta a gusto */
+  margin: 0;
+  min-height: 100vh;
+}
+
+.login-page {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sección izquierda con imagen y título */
+.login-left {
+    flex: 1;
+    background: url('/public/imagen/imagen2.jpeg') center center / cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-brand {
+    background-color: rgba(0, 128, 0, 0.6); /* verde transparente */
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Sección derecha del login */
+.login-right {
+    flex: 1;
+    background-color: #e8f5e9; /* verde muy suave */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.login-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 128, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.error-message {
+    color: #d32f2f;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Responsive: apila todo en columna */
+@media (max-width: 768px) {
+    .login-page {
+        flex-direction: column;
+    }
+
+    .login-left,
+    .login-right {
+        flex: unset;
+        width: 100%;
+        min-height: 40vh;
+    }
+
+    .login-brand {
+        font-size: 1.5rem;
+    }
+}
+
+.bg-light-green {
+  background-color: #f0fdf4; /* tono suave verde */
+}
