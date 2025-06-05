@@ -1,8 +1,8 @@
-describe('LoginAdmin', () => {
-  it('logueo correcto', () => {
+describe('AdminRegisterLogin', () => {
+  it('registro y logueo correctos', () => {
     //register a new user
     cy.visit('http://localhost:5173/auth/register');
-    const validUsername = `user-${Date.now()}`;
+    const validUsername = `admin`;
     cy.get('input[name="nombre"]').type(validUsername);
     const validPassword = 'Hola1234_';
     cy.get('input[name="contrasenia"]').type(validPassword);
