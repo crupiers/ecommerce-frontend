@@ -1,4 +1,5 @@
 //PARA ESTE TEST NO DEBE EXISTIR EL USUARIO ADMIN EN LA BASE DE DATOS
+//delete from usuario where nombre='admin';
 describe('AdminUser', () => {
   it('REGISTRO, LOGUEO Y DESLOGUEO COMPLETOS', () => {
     //register a new user
@@ -51,4 +52,3 @@ describe('AdminUser', () => {
     cy.get('button.me-2.align-items-center.d-flex').click();
   })
 })
-//delete from usuario where nombre='admin';

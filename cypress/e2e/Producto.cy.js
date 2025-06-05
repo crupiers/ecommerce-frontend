@@ -1,4 +1,6 @@
 //TIENE QUE ESTAR EL USUARIO ADMIN REGISTRADO Y ALGUNAS ENTIDADES TAMBIÉN
+//NO TIENE QUE EXISTIR EL PRODUCTO HELADERA
+//delete from producto where nombre='Heladera';
 describe('Producto', () => {
 
   beforeEach(() => {
@@ -47,4 +49,3 @@ describe('Producto', () => {
         cy.get('a[href*="/catalogo"]').click();
     });
 })
-//delete from producto where nombre='Heladera';
