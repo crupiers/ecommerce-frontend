@@ -47,3 +47,4 @@ describe('Producto', () => {
         cy.get('a[href*="/catalogo"]').click();
     });
 })
+//delete from producto where nombre='Heladera';

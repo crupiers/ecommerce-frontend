@@ -51,3 +51,4 @@ describe('AdminUser', () => {
     cy.get('button.me-2.align-items-center.d-flex').click();
   })
 })
+//delete from usuario where nombre='admin';
