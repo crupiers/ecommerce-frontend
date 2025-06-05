@@ -1,6 +1,6 @@
 //PARA ESTE TEST NO DEBE EXISTIR EL USUARIO ADMIN EN LA BASE DE DATOS
 describe('AdminUser', () => {
-  it('registro, logueo y deslogueo correctos', () => {
+  it('REGISTRO, LOGUEO Y DESLOGUEO COMPLETOS', () => {
     //register a new user
     cy.wait(1000);
     cy.visit('http://localhost:5173/');
