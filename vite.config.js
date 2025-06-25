@@ -10,7 +10,6 @@ export default defineConfig({
       '/ecommerce': {
         target: 'http://192.168.1.76:8080',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/ecommerce/, ''),
       },
     },
   },
