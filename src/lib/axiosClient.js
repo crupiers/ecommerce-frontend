@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const AXIOS_CLIENT = axios.create({
-    baseURL: "http://localhost:8080/ecommerce",
-    headers: {"Access-Control-Allow-Origin": "http://localhost:5173"}
+    baseURL: "http://192.168.1.76:8080/ecommerce",
+    headers: {"Access-Control-Allow-Origin": "http://192.168.1.76:5173"}
 });
 
 AXIOS_CLIENT.interceptors.response.use(
