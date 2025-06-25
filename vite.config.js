@@ -8,7 +8,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/ecommerce': {
-        target: 'http://localhost:8080',
+        target: 'http://192.168.1.76:8080',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/ecommerce/, ''),
       },
