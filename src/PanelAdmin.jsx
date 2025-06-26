@@ -31,23 +31,28 @@ function PanelAdmin() {
                 </NavDropdown>
 
                 <NavDropdown title="REGISTRAR" id="basic-nav-dropdown" data-cy="registrar-btn"> 
-                    <NavDropdown.Item as={Link} to="/colores/registrar" className="text-nowrap">
+                    <NavDropdown.Item data-cy="registrar-color-btn"
+                    as={Link} to="/colores/registrar" className="text-nowrap">
                         REGISTRAR COLOR
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/marcas/registrar" className="text-nowrap">
+                    <NavDropdown.Item data-cy="registrar-marca-btn"
+                    as={Link} to="/marcas/registrar" className="text-nowrap">
                         REGISTRAR MARCA
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/categorias/registrar" className="text-nowrap">
+                    <NavDropdown.Item data-cy="registrar-categoria-btn"
+                    as={Link} to="/categorias/registrar" className="text-nowrap">
                         REGISTRAR CATEGORÍA
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/tamanios/registrar" className="text-nowrap">
+                    <NavDropdown.Item data-cy="registrar-tamanio-btn"
+                    as={Link} to="/tamanios/registrar" className="text-nowrap">
                         REGISTRAR TAMAÑO
                     </NavDropdown.Item>
                     <NavDropdown.Item data-cy="registrar-producto-btn"
                      as={Link} to="/productos/registrar" className="text-nowrap">
                         REGISTRAR PRODUCTO
                     </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/productos/movimientoStock" className="text-nowrap">
+                    <NavDropdown.Item data-cy="registrar-movimiento-stock-btn"
+                    as={Link} to="/productos/movimientoStock" className="text-nowrap">
                         REGISTRAR MOVIMIENTO STOCK
                     </NavDropdown.Item>
                 </NavDropdown>
