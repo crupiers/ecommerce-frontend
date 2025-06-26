@@ -1,16 +1,12 @@
 //PARA ESTE TEST NO DEBE EXISTIR EL USUARIO ADMIN EN LA BASE DE DATOS
 //delete from usuario where nombre='admin';
-describe('AdminUser', () => {
+describe('Usuario', () => {
   it('REGISTRO, LOGUEO Y DESLOGUEO COMPLETOS', () => {
     //register a new user
     cy.wait(1000);
-    cy.visit('http://localhost:5173/');
+    cy.visit('http://localhost:5173/auth/register');
     cy.wait(1000);
-    cy.get('a[href*="/auth/register"]').click();
-
-    cy.wait(1000);
-    
-    const validUsername = `admin`;
+    const validUsername = `${Date.now()}`;
     cy.get('input[name="nombre"]').type(validUsername);
     cy.wait(1000);
 
