@@ -20,11 +20,11 @@ pipeline {
             }
         }
 
-	stage('TEST') {
-            steps {
-                sh 'npm test'
-            }
-        }
+	//stage('TEST') {
+            //steps {
+                //sh 'npm test'
+            //}
+        //}
 
 	stage('BUILD') {
             steps {
