@@ -1,15 +1,19 @@
-from node:20.18.0
+FROM node:20.18.0 as builder
 
-workdir /app
+WORKDIR /app
 
-#copio los dos archivos package que terminen en .json
-copy package*.json .
+COPY package*.json .
 
-run npm install
+RUN npm install
 
-#copio todos los archivos
-copy . . 
+COPY . ./
 
-expose 5173
+#RUN npm run build
 
-cmd ["npm", "run", "dev", "--", "--host"]
+FROM nginx:alpine
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
